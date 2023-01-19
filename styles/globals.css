@@ -179,7 +179,7 @@ body {
     font-family: myFontRegular400, sans-serif !important;
     font-size: var(--normal-size-16);
     background: var(--site-white);
-    /*overflow-x: hidden;*/
+    overflow-x: hidden;
     transition: all 0.4s ease;
 }
 
@@ -4778,5 +4778,6 @@ a:hover {
 }
 
 body {
-    background-color: #0C1B3E;
+    background: #091227;
+
 }

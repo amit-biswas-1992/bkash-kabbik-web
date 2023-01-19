@@ -1,4 +1,5 @@
 import Link from "next/link";
+import styles from "../styles/Footer.module.css";
 
 export default function Footer() {
     return (
@@ -7,10 +8,10 @@ export default function Footer() {
                 <div className="col-3">
                     <ul className="list-group">
                         <li>
-                            <Link href="/about">About</Link>
+                            <Link href="/about" className={styles.text_color}>About</Link>
                         </li>
                         <li>
-                            <Link href="/about">Kabbik</Link>
+                            <Link href="/about" className={styles.text_color}>Kabbik</Link>
                         </li>
                     </ul>
                 </div>

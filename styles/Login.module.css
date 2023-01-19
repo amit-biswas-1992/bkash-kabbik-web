@@ -1,3 +1,67 @@
+.loginPage {
+    /* background-color: black; */
+    background: url('/login_background.jpg') no-repeat center center;
+    /* opacity: 0.; */
+    position: relative;
+    background-size: 100% 100%;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.loginPage::before {
+    width: 100%;
+    background-color: #061029;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+.loginFormBox{
+    max-width: 350px;
+    width: 100%;
+
+}
+
+.inputNumberForm {
+    background-color: #061029;
+    border: none;
+    border-radius: 10px;
+    height: 42px;
+    color: white;
+}
+
 .text_color {
     color: white;
+}
+
+.otp_btn {
+    background: linear-gradient(106.61deg, #E50914 -23.67%, #866AFC 87.41%);
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    height: 42px;
+}
+
+.loginBtn{
+    background: white;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    height: 42px;
+    color: black;
+    position: relative;
+    text-align: center;
+}
+
+.loginBtnImg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
