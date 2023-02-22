@@ -1,0 +1,54 @@
+.libraryPage {
+    min-height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.libraryContentBox {
+    margin-top: 85px;
+    margin-bottom: 15px;
+}
+
+.navMenu {
+    color:MediumSeaGreen;
+    font-size: 14px;
+}
+
+.tabBorder {
+    border-bottom: 3px solid white;
+}
+
+.libraryCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    width: auto;
+    border-radius: 10px;
+    border: solid 3px #999999;
+    border-radius: 2px;
+    background: rgb(4, 24, 54);
+}
+
+.textColor{
+    color: white;
+    font-size: 12px;
+}
+
+.playBtn {
+    font-size: 20px;
+    border: none;
+    background: none;
+    color: white;
+}
+
+.onlineBtn{
+    background: linear-gradient(#624AF2, #50DDC3);
+    border-radius: 15px;
+    border: none;
+    min-width: 300px;
+    height: 55px;
+    color: #fff;
+    font-size: 16px;
+}

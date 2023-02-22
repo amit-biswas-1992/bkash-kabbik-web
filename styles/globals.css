@@ -49,6 +49,7 @@
 }
 
 :root {
+
     --site-black: #151515;
     --site-yellow: #EFC368;
     --site-teal: #214842;
@@ -68,7 +69,7 @@
     --site-gray-400: #EEF2F6;
     --site-gray-300: #F2F4F3;
     --site-gray-200: #F5F5F5;
-    ;
+    --site-dark-blue:rgb(5, 15, 30);
     --site-gray-100: #F4F4F4;
     --site-white: #ffffff;
     --white: #fff;
@@ -80,7 +81,7 @@
     --gray-200: #e9ecef;
     --gray-300: #dee2e6;
     --gray-400: #ced4da;
-    --gray-500: #adb5bd;
+    --gray-500: #adb5bd; /*muted text color*/
     --gray-600: #6c757d;
     --gray-700: #495057;
     --gray-800: #343a40;
@@ -93,6 +94,45 @@
     --danger: #dc3545;
     --light: #f8f9fa;
     --dark: #212529;
+
+    /* ----shoeb vai colors---- */
+
+    --site-primary: #0C1B3E;
+    --site-transparent: #00000000;
+    --site-transparent_deep1: #31091227;
+    --site-transparent_deep2: #77091227;
+    --site-transparent_deep3: #AD091227;
+    --site-transparent_deep4: #E4091227;
+    --site-primaryVariant: #121212;
+    --site-blueCustom: #091227; /*Global background*/
+    --site-quiz_red: #DF146E;
+    --site-grey: #808080;
+    --site-grey_light: #FFB0B0B0;
+    --site-blue_custom: #287EC3;
+    --site-blue_custom1: #A5C0FFB2;
+    --site-pink_custom: #D08BE0;
+    --site-green_custom: #A5C0FFB2;
+    --site-white_custom: #EAF0FF;
+    --site-dark_blue_custom: #0E1D3F;
+    --site-dark_yellow: #BF7912;
+    --site-ratingBg: #1A2637;
+    --site-colorAccent: #0000ff;
+    --site-red: #DF1102;
+    --site-grey_dark: #FF747474;
+    --site-green: #4CAF50;
+    --site-greendeep: #0A6E0E;
+    --site-takacolor: #FFFB00;
+    --site-progressColor: #7B2CBF;
+    --site-shimmerBg: #2C3C60;
+    --site-purchasedColor: #18FFFF;
+    --site-rategreen: #69F0AE;
+    --site-kabbik_color_1: #CE117F;
+    --site-kabbik_color_2: #502272;
+    --site-kabbik_color_3: #E78E23;
+    --site-profile_subscriptionbox: #0055287B;
+
+/* ----shoeb vai colors---- */
+
     --normal-size-200: 200px;
     --normal-size-195: 195px;
     --normal-size-190: 190px;
@@ -178,7 +218,7 @@ body {
     padding: 0;
     font-family: myFontRegular400, sans-serif !important;
     font-size: var(--normal-size-16);
-    background: var(--site-white);
+    background: var( --site-blueCustom);
     overflow-x: hidden;
     transition: all 0.4s ease;
 }
@@ -347,23 +387,23 @@ html {
     height: 100% !important;
 }
 
-.round_1 {
+.round-1 {
     border-radius: 1px !important;
 }
 
-.round_2 {
+.round-2 {
     border-radius: 2px !important;
 }
 
-.round_3 {
+.round-3 {
     border-radius: 3px !important;
 }
 
-.round_4 {
+.round-4 {
     border-radius: 4px !important;
 }
 
-.round_5 {
+.round-5 {
     border-radius: 5px !important;
 }
 
@@ -4775,9 +4815,4 @@ a:hover {
     width: 12px;
     height: 12px;
     background: var(--site-black);
-}
-
-body {
-    background: #091227;
-
 }

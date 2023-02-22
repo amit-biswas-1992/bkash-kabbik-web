@@ -1,0 +1,148 @@
+.topNav {
+    min-height: 40px;
+    background: #091227;
+}
+
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-bottom: 35px; */
+    /* margin-left: 20px; */
+}
+
+.authorDetailsPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.authorDetailsBox {
+    margin-top: 60px;
+    max-width: 700px;
+    width: 100%;
+}
+
+.authorCard {
+    background: #0E1D3F;
+    border-radius: 10px;
+}
+
+.authorImg {
+    min-width: 50%;
+    height: 250px;
+}
+
+.authorNameText {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* .updateText {
+    margin-left: 35px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #adb5bd;
+} */
+
+
+/* .hrLine {
+    border: 2px solid #4CAF50;
+    margin: 0px 40px;
+} */
+
+.dropDownBtn {
+    color: #fff;
+    background: #091227;
+    border: none;
+    font-size: 16px;
+}
+
+.smText {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bgText {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.textColor {
+    color: white;
+}
+
+.audioBookCard {
+    position: relative;
+    border-radius: 5px;
+}
+
+.cardImg {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.starBtn {
+    border-radius: 40px;
+    font-size: 12px;
+    background: #3a3d3a;
+    border: none;
+    padding: 2px;
+    color: white;
+  }
+  
+.starBtn i {
+    margin-right: 2px;
+    margin-left: 2px;
+    color: gold;
+}
+
+.premiumLogo {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    background: linear-gradient(106.61deg,#e50914 -23.67%,#866afc 87.41%);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.starLogo {
+    position: absolute;
+    top: 10px;
+    right: 1px;
+}
+
+.playLogo {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+}
+
+.playBtn {
+    border-radius: 40px;
+    font-size: 12px;
+    background: #3a3d3a;
+    border: none;
+    padding: 2px;
+    color: white;
+}
+  
+.playBtn i {
+    margin-right: 2px;
+    margin-left: 2px;
+    color: #40ff00;
+}
+
+.titleName {
+    margin-top: 5px;
+    color: white;
+    font-size: 12px;
+
+}
+.authorName {
+    color: white;
+    font-size: 12px;
+}

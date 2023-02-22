@@ -1,5 +1,16 @@
-import Home from "../components/HomeComponent";
+import Footer from "../components/Footer";
+import Header from "../components/HeaderComponent";
+import Home from "../components/Home/HomeComponent";
 
 export default function Index() {
-    return <Home />;
+    return (
+        <>
+            <Header />
+            <Home />;
+            <Footer />
+        </>
+
+    )
+
+
 }

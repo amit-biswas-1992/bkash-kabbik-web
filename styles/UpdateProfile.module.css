@@ -1,19 +1,25 @@
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-left: 20px; */
+}
+
 .updateProfilePage {
-    min-height: 100vh;
+    min-height: 80vh;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.updateProfileFormBox{
-    max-width: 350px;
+.updateProfileFormBox {
+    max-width: 500px;
     width: 100%;
 }
 
 .inputNumberForm {
     border: none;
     border-radius: 10px;
-    height: 42px;
+    height: 45px;
     color: white;
 }
 

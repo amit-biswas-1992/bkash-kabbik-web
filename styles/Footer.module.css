@@ -1,3 +1,17 @@
 .text_color {
     color: white;
 }
+
+.bottomNav {
+    min-height: 50px;
+    background: rgb(7, 25, 54);
+}
+
+/* :target {
+    color: red;
+  } */
+
+.activeMenu {
+    color: "white";
+    font-size: "20px";
+}

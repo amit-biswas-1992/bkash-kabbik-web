@@ -1,31 +1,43 @@
 import Link from "next/link";
 import styles from "../styles/Footer.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MdOutlineLibraryMusic } from "react-icons/md";
+
+// import the icons you need
+import { faHome,faCrown,faMicrophoneAlt,faUser } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function Footer() {
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-3">
-                    <ul className="list-group">
-                        <li>
-                            <Link href="/about" className={styles.text_color}>About</Link>
-                        </li>
-                        <li>
-                            <Link href="/about" className={styles.text_color}>Kabbik</Link>
-                        </li>
-                    </ul>
+
+        <>
+
+            <div className={`text-center fixed-bottom ${styles.bottomNav}`}>
+
+                <div className="row row-cols-5 mt-3">
+                    
+                    <div className="col"> 
+                        <Link href="/"><FontAwesomeIcon icon={faHome} style={{ color: "white", fontSize: "20px" }} /></Link> {/*active menu*/}
+                    </div>
+                    <div className="col">
+                        <Link href="/premium_audiobooks"><FontAwesomeIcon icon={faCrown} style={{ fontSize: "20px" }} /></Link>
+                    </div>
+                    <div className="col">
+                        <Link href="/library"><MdOutlineLibraryMusic style={{ fontSize: "24px" }} /></Link>
+
+                    </div>
+                    <div className="col">
+                        <Link href="/podcast"><FontAwesomeIcon icon={faMicrophoneAlt} style={{ fontSize: "20px" }} /></Link>
+                    </div>
+                    <div className="col">
+                        <Link href="/profile"><FontAwesomeIcon icon={faUser} style={{ fontSize: "20px" }} /></Link>
+                    </div>
+
                 </div>
-                <div className="col-3">
-                    <ul className="list-group">
-                        <li>
-                            <Link href="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link href="/about">Kabbik</Link>
-                        </li>
-                    </ul>
-                </div>
+
             </div>
-        </div>
+
+        </>
+
     );
 }

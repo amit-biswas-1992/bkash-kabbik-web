@@ -1,0 +1,31 @@
+interface PremiumAudioBookInfo {
+
+    id: number,
+    name: string,
+    description: string,
+    author_name: string,
+    contributing_artists: string,
+    price: number,
+    discount_price: number,
+    guid: null,
+    publish_year: null,
+    thumb_path: string,
+    banner_path: null,
+    premium: number,
+    approval_status: number,
+    play_count: number,
+    for_app: number,
+    deleted: number,
+    created_at: Date,
+    updated_at: Date,
+    category_id: number,
+    channel_id: number,
+    podcast: number,
+    en_name: null,
+    en_author_name: null,
+    en_contributing_artists: null,
+    rating: number,
+
+}
+
+export default PremiumAudioBookInfo;

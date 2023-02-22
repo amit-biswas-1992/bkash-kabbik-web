@@ -1,0 +1,61 @@
+.topNav {
+    min-height: 40px;
+    background: #091227;
+}
+
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-bottom: 35px; */
+    /* margin-left: 20px; */
+}
+
+.favoritesPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.favoritesContentBox {
+    margin-top: 80px;
+    width: 700px;
+}
+
+.bgText {
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.smText {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.favImg {
+    position: relative;
+    border-radius: 6px;
+}
+
+/* .imgText {
+    position: absolute;
+    bottom: 57%;
+    left: 6%;
+    font-size: 1.8vw;
+    color: black;
+} */
+
+.titleName {
+    margin-top: 5px;
+    color: white;
+    font-size: 12px;
+
+}
+.authorName {
+    color: white;
+    font-size: 12px;
+}
