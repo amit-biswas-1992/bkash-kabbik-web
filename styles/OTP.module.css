@@ -34,3 +34,11 @@
     height: 50px;
     width: 50px !important;
 }
+
+.otp_btn {
+    background: #53b175;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    height: 42px;
+}

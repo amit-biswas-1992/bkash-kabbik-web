@@ -36,6 +36,13 @@
     font-size: 35px;
 }
 
+.previusMutedBtn {
+    border: none;
+    background: none;
+    color: #A9A9A9;
+    font-size: 35px;
+}
+
 .backwardSkipBtn {
     border: none;
     background: none;

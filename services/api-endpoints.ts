@@ -2,9 +2,22 @@ const BASE_URL = 'https://api.kabbik.com';
 
 export const apiEndPoints = {
     packageList: `${BASE_URL}/v3/googlepay/googlepay_subscription_list`,
-    bannerImage: `${BASE_URL}/v2/core/banner-image`,
+    topbannerImage: `${BASE_URL}/v4/home/getHomeBannerApp`,
+    promoBannerList: `${BASE_URL}/v4/home/home-banner-list`,
     podcastList: `${BASE_URL}/v1/audiobooks/podcast-audiobooks`,
     premuimAudioBookList: `${BASE_URL}/v1/audiobooks/premium-audiobooks`,
     favoriteAudioBookList: `${BASE_URL}/v1/favs/user-favs?user_id=9760`,
-    // audioBookDetails: 
-};
+    audioBookDetails: `${BASE_URL}/v3/audiobooks/`,
+    authorDetails: `${BASE_URL}/v1/audiobooks/authors/?name=`,
+    authorEpisodes: `${BASE_URL}/v1/audiobooks/authors/authorepisodes?name=`,
+    castCrewDetails: `${BASE_URL}/v1/audiobooks/castcrew/?name=`,
+    castCrewEpisodes: `${BASE_URL}/v1/audiobooks/castcrew/castcrewaudiobook/?name=`,
+    reviewList: `${BASE_URL}/v3/audiobooks/getallreview/?id=`,
+    homeList: `${BASE_URL}/v4/home/home`,
+    catagorySuggestions: `${BASE_URL}/v2/categories/suggestion`,
+    catagoryItems: `${BASE_URL}/v2/audiobooks/category/`,
+    catagoryList: `${BASE_URL}/v1/categories`,
+    favoritesPost: `${BASE_URL}/v1/favs`,
+    userProfile: `${BASE_URL}/v1/users/9760`,
+    sendOtp: `${BASE_URL}/v1/auth/otpnew`,
+}

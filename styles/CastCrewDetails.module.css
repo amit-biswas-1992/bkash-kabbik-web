@@ -33,6 +33,13 @@
     height: 250px;
 }
 
+.dropDownBtn {
+    color: #fff;
+    background: #091227;
+    border: none;
+    font-size: 16px;
+}
+
 .updateText {
     margin-left: 35px;
     font-size: 13px;

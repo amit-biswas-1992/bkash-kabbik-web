@@ -3,8 +3,6 @@ import AudioBookDeatilsComponent from "../../components/AudioBook/AudioBookDeati
 
 export default function AudioBookDetails() {
 
-    
-
     return (
         <>
             <AudioBookDeatilsComponent />

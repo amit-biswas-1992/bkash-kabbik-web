@@ -6,29 +6,74 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
-import { getBannerImage } from "../../services/api.service";
-import BannerImageInfo from "../../models/BannerImageInfo";
+import { getTopBannerImage, getHomeList, getPromoBannerList, getCatagorySuggestions } from "../../services/api.service";
+import TopBannerImageInfo from "../../models/TopBannerImageInfo";
+import HomeInfo from "../../models/HomeInfo";
+import PromoBannerInfo from "../../models/PromoBannerInfo";
+import CatagorySuggestionsInfo from "../../models/CatagorySuggestionsInfo";
 import React, { useEffect, useState } from "react";
+import Router from "next/router";
 
 export default function Home() {
 
-    const [bannerImageData, setbannerImageData] = useState<BannerImageInfo[]>([]);
-    console.log(bannerImageData);
+    const [topbannerImageData, settopbannerImageData] = useState<TopBannerImageInfo[]>();
+    const [homeData, sethomeData] = useState<HomeInfo[]>();
+    const [promoBannerData, setpromoBannerData] = useState<PromoBannerInfo[]>();
+    const [catagorySuggData, setcatagorySuggData] = useState<CatagorySuggestionsInfo[]>();
+
+    console.log(topbannerImageData);
+    console.log('data',catagorySuggData);
 
     useEffect(() => {
-        bannerImage();
+        topBannerImage();
+        homeDetails();
+        PromoBannerImage();
+        catagorySuggestion();
     }, []);
 
-    const bannerImage = async () => {
+    const topBannerImage = async () => {
 
-        const data = await getBannerImage();
+        const data = await getTopBannerImage();
         if (data)
             console.log(data, "banner Image");
-        setbannerImageData(data);
+        settopbannerImageData(data.data);
 
     }
 
+    const PromoBannerImage = async () => {
 
+        const data = await getPromoBannerList();
+        if (data)
+            console.log(data, "banner Image");
+        setpromoBannerData(data);
+
+    }
+
+    const homeDetails = async () => {
+
+        const data = await getHomeList();
+        if (data)
+            sethomeData(data.data);
+    };
+
+    const catagorySuggestion = async () => {
+
+        const data = await getCatagorySuggestions();
+        if (data)
+            setcatagorySuggData(data.data);
+    };
+
+    const trendingLoader = ({ src, width, quality }: any) => {
+        return `${src}?w=${width}&q=${quality || 75}`;
+    };
+
+    const topBannerLoader = ({ src, width, quality }: any) => {
+        return `${src}?w=${width}&q=${quality || 75}`;
+    };
+
+    const promoBannerLoader = ({ src, width, quality }: any) => {
+        return `${src}?w=${width}&q=${quality || 75}`;
+    };
 
     const mainSlide = {
         dots: true,
@@ -40,6 +85,8 @@ export default function Home() {
         autoplaySpeed: 5000,
         cssEase: "linear",
         arrows: false,
+        border: false,
+
         responsive: [
             {
                 breakpoint: 1024,
@@ -70,13 +117,15 @@ export default function Home() {
         ]
     };
 
-    var trendSlide = {
+    var homeSlide = {
+
         infinite: false,
         slidesToShow: 4,
         speed: 100,
         rows: 1,
         initialSlide: 0,
         arrows: false,
+        // alignment: left,
         responsive: [
             {
                 breakpoint: 1024,
@@ -104,7 +153,6 @@ export default function Home() {
     };
 
     const adSlide = {
-        // dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -115,48 +163,11 @@ export default function Home() {
         arrows: false,
     };
 
-    var newSlide = {
-        infinite: false,
-        slidesToShow: 4,
-        speed: 100,
-        rows: 1,
-        initialSlide: 0,
-        arrows: false,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    initialSlide: 0,
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 2.4,
-                    initialSlide: 0,
-                }
-            }
-        ]
-
-    };
-
-
-
     return (
         <>
 
 
             <div className={styles.homePage}>
-
-
 
                 <div className={`container ${styles.homeContentBox}`}>
 
@@ -198,28 +209,39 @@ export default function Home() {
 
                         <Slider {...mainSlide}>
 
-                            {bannerImageData.map((info) => (
+                            {topbannerImageData?.map((topbannerinfo: any) => (
 
-                                <div className="relative text-center">
+                                <div key={topbannerinfo?.id} className="relative text-center">
 
-                                    <div className={`card text-bg-dark ${styles.imgGradient}`}>
-                                        <Link href="#">
-                                            <Image src={"/karbalar.jpeg"} className={styles.cardImg} height={450} width={545} alt="" ></Image>
-                                        </Link>
+                                    <div className={`card text-bg-dark`} style={{ border: "none" }}>
+
+                                        <div className={`position-relative ${styles.imgGradient}`} onClick={() => Router.push(`/audiobook_details/${topbannerinfo?.id}`)} >
+
+                                            <Image
+                                                loader={topBannerLoader}
+                                                width={545}
+                                                height={450}
+                                                src={topbannerinfo.thumb_path}
+                                                alt=""
+                                                className={styles.cardImg}
+                                            />
+
+                                        </div>
+
                                         <div className={styles.overlayText} >
                                             <div className="mb-4">
-                                                <p className="card-text mb-1">কাব্যিক অরিজিনাল</p>
-                                                <h5 className="card-title">কারবালার ইতিহাস </h5>
+                                                <p className="card-text mb-1">{topbannerinfo.author_name}</p>
+                                                <h5 className="card-title">{topbannerinfo.name}</h5>
                                             </div>
                                             <div className={`d-flex justify-content-between align-items-center ${styles.overlayTextBtn}`}>
                                                 <div className="">
                                                     <i className={`bi bi-mic-fill ${styles.micLogo}`}></i><br />
-                                                    <span className={styles.sliderText}>313</span>
+                                                    <span className={styles.sliderText}>{topbannerinfo.play_count}</span>
                                                 </div>
                                                 <button className={`mx-4 ${styles.audioPlayBtn}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i className="bi bi-play-circle-fill" ></i> Play</button>
                                                 <div className="">
                                                     <i className={`bi bi-star-fill ${styles.starLogo}`}></i><br />
-                                                    <span className={styles.sliderText}>313</span>
+                                                    <span className={styles.sliderText}>{topbannerinfo.rating.toFixed(1)}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -228,134 +250,6 @@ export default function Home() {
                                 </div>
                             ))}
 
-                            {/* <div className="relative text-center">
-
-                                <div className={`card text-bg-dark ${styles.imgGradient}`}>
-                                    <Link href="#">
-                                        <Image src="/karbalar.jpeg" className={styles.cardImg} height={450} width={545} alt="" ></Image>
-                                    </Link>
-                                    <div className={styles.overlayText} >
-                                        <div className="mb-4">
-                                            <p className="card-text mb-1">কাব্যিক অরিজিনাল</p>
-                                            <h5 className="card-title">কারবালার ইতিহাস </h5>
-                                        </div>
-                                        <div className={`d-flex justify-content-between align-items-center ${styles.overlayTextBtn}`}>
-                                            <div className="">
-                                                <i className={`bi bi-mic-fill ${styles.micLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                            <button className={`mx-4 ${styles.audioPlayBtn}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i className="bi bi-play-circle-fill" ></i> Play</button>
-                                            <div className="">
-                                                <i className={`bi bi-star-fill ${styles.starLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> */}
-
-                            {/* <div className="relative text-center">
-
-                                <div className={`card text-bg-dark ${styles.imgGradient}`}>
-                                    <Link href="#">
-                                        <Image src="/karbalar.jpeg" className={styles.cardImg} height={450} width={545} alt="" ></Image></Link>
-                                    <div className={styles.overlayText} >
-                                        <div className="mb-4">
-                                            <p className="card-text mb-1">কাব্যিক অরিজিনাল</p>
-                                            <h5 className="card-title">কারবালার ইতিহাস </h5>
-                                        </div>
-                                        <div className={`d-flex justify-content-between align-items-center ${styles.overlayTextBtn}`}>
-                                            <div className="">
-                                                <i className={`bi bi-mic-fill ${styles.micLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                            <button className={`mx-4 ${styles.audioPlayBtn}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i className="bi bi-play-circle-fill" ></i> Play</button>
-                                            <div className="">
-                                                <i className={`bi bi-star-fill ${styles.starLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="relative text-center">
-
-                                <div className={`card text-bg-dark ${styles.imgGradient}`}>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={styles.cardImg} height={450} width={545} alt="" ></Image></Link>
-                                    <div className={styles.overlayText} >
-                                        <div className="mb-4">
-                                            <p className="card-text mb-1">কাব্যিক অরিজিনাল</p>
-                                            <h5 className="card-title">কারবালার ইতিহাস </h5>
-                                        </div>
-                                        <div className={`d-flex justify-content-between align-items-center ${styles.overlayTextBtn}`}>
-                                            <div className="">
-                                                <i className={`bi bi-mic-fill ${styles.micLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                            <button className={`mx-4 ${styles.audioPlayBtn}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i className="bi bi-play-circle-fill" ></i> Play</button>
-                                            <div className="">
-                                                <i className={`bi bi-star-fill ${styles.starLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="relative text-center">
-
-                                <div className={`card text-bg-dark ${styles.imgGradient}`}>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={styles.cardImg} height={450} width={545} alt="" ></Image></Link>
-                                    <div className={styles.overlayText} >
-                                        <div className="mb-4">
-                                            <p className="card-text mb-1">কাব্যিক অরিজিনাল</p>
-                                            <h5 className="card-title">কারবালার ইতিহাস </h5>
-                                        </div>
-                                        <div className={`d-flex justify-content-between align-items-center ${styles.overlayTextBtn}`}>
-                                            <div className="">
-                                                <i className={`bi bi-mic-fill ${styles.micLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                            <button className={`mx-4 ${styles.audioPlayBtn}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i className="bi bi-play-circle-fill" ></i> Play</button>
-                                            <div className="">
-                                                <i className={`bi bi-star-fill ${styles.starLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="relative text-center">
-
-                                <div className={`card text-bg-dark ${styles.imgGradient}`}>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={styles.cardImg} height={450} width={545} alt="" ></Image></Link>
-                                    <div className={styles.overlayText} >
-                                        <div className="mb-4">
-                                            <p className="card-text mb-1">কাব্যিক অরিজিনাল</p>
-                                            <h5 className="card-title">কারবালার ইতিহাস </h5>
-                                        </div>
-                                        <div className={`d-flex justify-content-between align-items-center ${styles.overlayTextBtn}`}>
-                                            <div className="">
-                                                <i className={`bi bi-mic-fill ${styles.micLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                            <button className={`mx-4 ${styles.audioPlayBtn}`} type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i className="bi bi-play-circle-fill" ></i> Play</button>
-                                            <div className="">
-                                                <i className={`bi bi-star-fill ${styles.starLogo}`}></i><br />
-                                                <span className={styles.sliderText}>313</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> */}
-
                         </Slider >
 
                     </section>
@@ -363,517 +257,120 @@ export default function Home() {
 
                     <section className="section2 mt-4">
 
-                        <div className="d-flex justify-content-between align-items-center mb-2 mx-1">
-                            <Link href="#" style={{ fontSize: "18px", color: "white" }}>ট্রেন্ডিং </Link>
-                            <Link href="#" className={styles.textColor}>See More</Link>
-                        </div>
+                        {homeData?.map((homeinfo: any, index: any) => (
 
-                        <Slider {...trendSlide} >
-
-                            <Link href="/audiobook_details">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/karbalar.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
+                            <>
+                                <div className="d-flex justify-content-between align-items-center mb-2 mx-1">
+                                    <Link href="#" style={{ fontSize: "18px", color: "white" }}>{homeinfo.name} </Link>
+                                    <Link href="#" className={styles.textColor}>See More</Link>
                                 </div>
 
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/tiktiki.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/mosha.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/hodifu.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/bidesh.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-
-                        </Slider>
-
-                    </section>
-
-                    <section className="section3">
-
-                        <div>
-                            <Slider {...adSlide}>
-                                <div>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={` ${styles.sec3cardImg}`} height={130} width={545} alt="" ></Image></Link>
-                                </div>
-
-                                <div>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={styles.sec3cardImg} height={130} width={545} alt="" ></Image></Link>
-                                </div>
-
-                                <div>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={styles.sec3cardImg} height={130} width={545} alt="" ></Image></Link>
-                                </div>
-
-                                <div>
-                                    <Link href="#"><Image src="/karbalar.jpeg" className={styles.sec3cardImg} height={130} width={545} alt="" ></Image></Link>
-                                </div>
-
-                            </Slider>
-                        </div>
-
-                    </section>
-
-                    <section className="section4 mt-3">
-
-                        <div className="d-flex justify-content-between align-items-center mb-2 mx-1">
-                            <Link href="#" style={{ fontSize: "18px", color: "white" }}>নতুন </Link>
-                            <Link href="#" className={styles.textColor}>See More</Link>
-                        </div>
-
-                        <Slider {...newSlide} >
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/karbalar.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/tiktiki.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/mosha.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/hodifu.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/bidesh.jpeg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <span className={styles.freeAudioText} >Free</span>
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-                            <Link href="#">
-
-                                <div className={`card mx-1 ${styles.catagoryCard}`}>
-                                    <div className="d-flex justify-content-between card-header">
-                                        <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />
-                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> 4.5</button>
-                                    </div>
-                                    <Image src="/demo.jpg" className={styles.catagoryCardImg} height={150} width={150} alt="" ></Image>
-                                    <div className="card-footer">
-                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i> 156</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-center">
-                                    <p className={`my-2 ${styles.textColor}`}>বাংলাদেশে ইসলামের </p>
-                                    <p className={`text-muted ${styles.textColor}`}>কাব্যিক অরিজিনাল </p>
-                                </div>
-
-                            </Link>
-
-
-                        </Slider>
-
-                    </section>
-
-                    <section className="section5 mx-2">
-                        <div className="d-flex justify-content-between align-items-center">
-                            <p style={{ color: "white" }}>Browse by Catagory</p>
-                            <Link href="/audiobook_search"><p style={{ color: "white" }}><i className="bi bi-chevron-down"></i> Show more</p></Link>
-                        </div>
-
-                        <div className="d-flex mt-3 justify-content-between text-center">
-                            <Link href="/catagory_list" className={`text-warp ${styles.browseCatagoryBtn}`}><p className={styles.browseCatagoryBtnText}>জীবনবৃত্তান্ত</p></Link>
-                            <Link href="/catagory_list" className={`text-warp ${styles.browseCatagoryBtn}`}><p className={styles.browseCatagoryBtnText}>কল্পনা</p></Link>
-                            <Link href="/catagory_list" className={`text-warp ${styles.browseCatagoryBtn}`}><p className={styles.browseCatagoryBtnText}>ভৌতিক</p></Link>
-                        </div>
-
-                        <div className="d-flex mt-4 mx-5 justify-content-between text-center">
-                            <Link href="/catagory_list" className={`text-warp ${styles.browseCatagoryBtn}`}><p className={styles.browseCatagoryBtnText}>বিনোদন</p></Link>
-                            <Link href="/catagory_list" className={`text-warp ${styles.browseCatagoryBtn}`}><p className={styles.browseCatagoryBtnText}>ধর্মীয়</p></Link>
-                        </div>
-
-                        <div className="mt-4 row text-center">
-                            <Link href="/catagory_list" className={`col mx-2 text-warp ${styles.browseCatagoryBtn}`}><p className={styles.browseCatagoryBtnText}>সমকালীন উপন্যাস</p></Link>
-                        </div>
+                                <Slider {...homeSlide}>
+
+                                    {homeinfo?.data?.map((audiobookinfo: any) => (
+
+                                        <div key={audiobookinfo?.id} >
+
+                                            <Link href={`audiobook_details/${audiobookinfo?.id}`}>
+
+                                                <div className={`card mx-1 ${styles.catagoryCard}`}>
+
+                                                    <div className="d-flex justify-content-between card-header">
+
+                                                        {audiobookinfo.price == 0 ? <div className={styles.freeAudioText}>Free</div> : <FontAwesomeIcon className={styles.premiumLogo} icon={faCrown} style={{ fontSize: "14px", color: "white" }} />}
+
+                                                        <button className={`mx-1 ${styles.starBtn}`}><i className="bi bi-star-fill"></i> {audiobookinfo.rating.toFixed(1)}</button>
+                                                    </div>
+
+                                                    <Image
+                                                        loader={trendingLoader}
+                                                        width={150}
+                                                        height={150}
+                                                        src={audiobookinfo.thumb_path}
+                                                        alt=""
+                                                        className={styles.catagoryCardImg}
+                                                    />
+
+                                                    <div className="card-footer">
+                                                        <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i>{audiobookinfo.play_count}</button>
+                                                    </div>
+                                                </div>
+
+                                                <div className="text-center">
+                                                    <p className={`my-2 ${styles.textColor}`}>{audiobookinfo.name}</p>
+                                                    <p className={`text-muted ${styles.textColor}`}>{audiobookinfo.author_name}</p>
+                                                </div>
+
+                                            </Link>
+
+                                        </div>
+
+                                    ))}
+
+                                </Slider>
+
+                                {index == 0 ?
+
+                                    <section className="section3 my-4">
+
+                                        <div>
+                                            <Slider {...adSlide}>
+
+                                                {promoBannerData?.map((promoinfo: any) => (
+
+                                                    <div key={promoinfo.audiobook_id}>
+
+                                                        <Link href={promoinfo.route == "audiobook_route" ? `audiobook_details/${promoinfo?.audiobook_id}` : "/subscribe"}>
+
+                                                            <Image
+                                                                loader={promoBannerLoader}
+                                                                width={545}
+                                                                height={130}
+                                                                src={promoinfo.image_url}
+                                                                alt=""
+                                                                className={` ${styles.sec3cardImg}`}
+                                                            />
+
+                                                        </Link>
+
+                                                    </div>
+
+                                                ))}
+
+                                            </Slider>
+                                        </div>
+
+                                    </section> : <></>}
+
+                                { catagorySuggData && index == 4  ?
+
+                                    <section className="section5 mx-2 mb-4">
+                                        
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <p style={{ color: "white" }}>Browse by Catagory</p>
+                                            <Link href="/audiobook_search"><p style={{ color: "white" }}><i className="bi bi-chevron-down"></i> Show more</p></Link>
+                                        </div>
+
+                                        <div className="d-flex mt-3 justify-content-between text-center">
+                                            <Link href={`catagory_list/${catagorySuggData[0]?.id}`} className={`${styles.browseCatagoryBtn}`}><p className={`text-wrap mb-0 ${styles.browseCatagoryBtnText}`}>{catagorySuggData[0]?.name}</p></Link>
+                                            <Link href={`catagory_list/${catagorySuggData[1]?.id}`} className={`${styles.browseCatagoryBtn}`}><p className={`text-wrap mb-0 ${styles.browseCatagoryBtnText}`}>{catagorySuggData[1]?.name}</p></Link>
+                                            <Link href={`catagory_list/${catagorySuggData[2]?.id}`} className={`${styles.browseCatagoryBtn}`}><p className={`text-wrap mb-0 ${styles.browseCatagoryBtnText}`}>{catagorySuggData[2]?.name}</p></Link>
+                                        </div>
+
+                                        <div className="d-flex mt-4 mx-5 justify-content-between text-center">
+                                            <Link href={`catagory_list/${catagorySuggData[3]?.id}`} className={`${styles.browseCatagoryBtn}`}><p className={`text-wrap mb-0 ${styles.browseCatagoryBtnText}`}>{catagorySuggData[3]?.name}</p></Link>
+                                            <Link href={`catagory_list/${catagorySuggData[4]?.id}`} className={`${styles.browseCatagoryBtn}`}><p className={`text-wrap mb-0 ${styles.browseCatagoryBtnText}`}>{catagorySuggData[4]?.name}</p></Link>
+                                        </div>
+
+                                        <div className="mt-4 row text-center">
+                                            <Link href={`catagory_list/${catagorySuggData[5]?.id}`} className={`col mx-2 ${styles.browseCatagoryBtn}`}><p className={`text-wrap mb-0 ${styles.browseCatagoryBtnText}`}>{catagorySuggData[5]?.name}</p></Link>
+                                        </div>
+
+                                    </section> : <></>}
+
+                            </>
+
+                        ))}
 
                     </section>
 
@@ -887,11 +384,7 @@ export default function Home() {
 
                 </div>
 
-
-
             </div>
-
-
 
         </>
 

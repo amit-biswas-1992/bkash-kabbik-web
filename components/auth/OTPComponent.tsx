@@ -1,15 +1,74 @@
 import Image from "next/image";
 import styles from "../../styles/OTP.module.css";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OtpInput from 'react18-input-otp';
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { postSendOtp } from "../../services/api.service";
 
 const OTPComponent = () => {
 
+    const navigate = useRouter();
+
     const [otp, setOtp] = useState('');
-    const handleChange = (enteredOtp: React.SetStateAction<string>) => {
-        setOtp(enteredOtp);
+    const [num, setNum] = useState("");
+
+    useEffect(() => {
+        const login_Data = JSON.parse(localStorage.getItem("msisdn") || '{}');
+    
+        setNum(login_Data);
+    
+      }, []);
+
+    const handleChange = (otp: any) => {
+        setOtp(otp);
     };
 
+    const handleOTP = async () => {
+        if (otp == "") {
+          toast.info("Please fill the otp");
+          return;
+        }
+        const datakey = { msisdn: num, otp: otp };
+        const url = "/auth/otps/verify";
+        // navigate.push("../auth/info");
+        try {
+
+            if (otp.length === 4) {
+                console.log("matched");
+
+
+                const data = await postSendOtp(url, datakey);
+                console.log("varifyotp", data)
+                if (data.statusCode) {
+                    // console.log('this block')
+                    toast.warning("Invalid OTP");
+                    return;
+                }
+                if (data?.data.user?.isActive === false) {
+
+                    localStorage.setItem("user_token", data.data.token);
+                    navigate.push("../auth/info");
+                    toast.success("OTP varified");
+                } else {
+                    console.log(data.data.token);
+
+                    localStorage.setItem("user_token", data.data.token);
+
+                    navigate.push("../home");
+                    toast.success("OTP verified");
+                }
+
+            } else {
+                toast.warning("Invalid OTP");
+            }
+        } catch (error: any) {
+            toast.warning("Invalid OTP");
+        }
+
+
+    };
 
     return (
         <>
@@ -40,7 +99,11 @@ const OTPComponent = () => {
                     </div>
 
                     <div className="text-center">
-                        <p className={` ${styles.text_color}`} >Resend OTP in: 01:46</p>
+                        <p className={` ${styles.text_color}`} >Resend OTP</p>
+                    </div>
+
+                    <div className="d-flex justify-content-center align-items-center mt-3 mx-4">
+                        <button type="submit" onClick={handleOTP} className={`btn btn-success ${styles.otp_btn}`}>Submit</button>
                     </div>
 
                 </div>

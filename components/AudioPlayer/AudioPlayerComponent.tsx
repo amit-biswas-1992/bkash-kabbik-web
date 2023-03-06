@@ -3,50 +3,180 @@ import Link from "next/link";
 import Router from "next/router";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useRouter } from 'next/router'
+import { getAudioBookDetails, getAuthorDetails, getCastCrewDetails, getRatingReviewList } from "../../services/api.service";
+import AudioBookDetailsInfo from "../../models/AudioBookDetailsInfo";
+import React, { useEffect, useState, useRef } from "react";
+
 
 
 const AudioPlayerComponent = () => {
+
+    const router = useRouter()
+    const { id } = router.query;
+    console.log(id);
+
+    const [audioBookDetailsData, setaudioBookDetailsData] = useState<AudioBookDetailsInfo>();
+    const [playList, setPlayList] = useState([]);
+
+
+    const audioPlayer: any = useRef(null);
+
+    const [index, setIndex] = useState(0);
+    const [currentSong] = useState(playList[index]);
+    const [isPlaying, setisPlaying] = useState(false);
+    // const [volume, setVolume] = useState(30);
+
+    const [elapsed, setElapsed]: any = useState();
+    const [duration, setDuration]: any = useState();
+
+
+    const togglePlay = () => {
+
+        if (!isPlaying) {
+            audioPlayer.current.play();
+        } else {
+            audioPlayer.current.pause();
+        }
+        setisPlaying(prev => !prev);
+    };
+
+    const toggleForward = () => {
+        audioPlayer.current.currentTime += 10;
+    };
+
+    const toggleBackward = () => {
+        audioPlayer.current.currentTime -= 10;
+    };
+
+    const toggleSkipForward = () => {
+        if (index >= playList.length - 1) {
+            setIndex(0);
+            audioPlayer.current.src = playList[0];
+            audioPlayer.current.play();
+        } else {
+            setIndex(prev => prev + 1);
+            audioPlayer.current.src = playList[index + 1];
+            audioPlayer.current.play();
+        }
+    };
+
+    const toggleSkipBackward = () => {
+        if (index > 0) {
+            setIndex(prev => prev - 1);
+            audioPlayer.current.src = playList[index - 1];
+            audioPlayer.current.play();
+        }
+    };
+
+    console.log('audioBookDetailsData');
+    console.log(audioBookDetailsData);
+    console.log('audioBookDetailsData');
+
+    useEffect(() => {
+
+        audioBookDetails();
+
+        // audioBookplayer(audioBookDetailsData?.episodes);
+
+        // if (audioPlayer) {
+        //     console.log(audioPlayer.current);
+        //     audioPlayer.current.volume = volume / 100;
+        // };
+
+
+        if (isPlaying) {
+            setInterval(() => {
+                const _duration = Math.floor(audioPlayer?.current?.duration);
+                const _elapsed = Math.floor(audioPlayer?.current?.currentTime);
+
+                setDuration(_duration);
+                setElapsed(_elapsed);
+            }, 100);
+        }
+
+    }, [id, isPlaying]);
+
+    function formatTime(time: any) {
+        if (time && !isNaN(time)) {
+            const minutes = Math.floor(time / 60) < 10 ? `0${Math.floor(time / 60)}` : Math.floor(time / 60);
+            const seconds = Math.floor(time % 60) < 10 ? `0${Math.floor(time % 60)}` : Math.floor(time % 60);;
+            return `${minutes}:${seconds}`;
+        }
+        return '00:00';
+    }
+
+    const audioBookDetails = async () => {
+
+        const data = await getAudioBookDetails(id);
+        if (data)
+
+            setaudioBookDetailsData(data);
+        const episodeList: any = [];
+        data.episodes?.forEach(function (data: any) {
+            episodeList.push(
+                data.file_path,
+            );
+
+        });
+        setPlayList(episodeList);
+    };
+
+    const audioBookLoader = ({ src, width, quality }: any) => {
+        return `${src}?w=${width}&q=${quality || 75}`;
+    };
+
     return (
         <>
 
             <div className={styles.backBtn}>
-                <h4 onClick={() => Router.back()}><i className="bi bi-arrow-left mx-3"></i> ড্রাকুলা </h4>
+                <h4 onClick={() => Router.back()}><i className="bi bi-arrow-left mx-3"></i> Now Playing </h4>
             </div>
 
-            <div className={styles.audioPlayerPage}>
+            {audioBookDetailsData ? <div className={styles.audioPlayerPage}>
 
                 <div className={styles.audioPlayerBox}>
+
+                    <audio src={currentSong} ref={audioPlayer} ></audio>
 
                     <div className="mx-2 mt-5">
 
                         <div className={`text-center ${styles.audioBookcard}`}>
-                            <Image src="/kochi.jpeg" height={100} width={300} className={`img-fluid ${styles.audiBookImg}`} alt="..." />
 
-                            <p className={`card-title ${styles.titleName}`}>কচি পাঁঠার ঝোল</p>
-                            <p className={`mb-0 ${styles.authorName}`} >শুভঙ্কর মারিক </p>
-                            <p className={styles.authorName} >শুভ</p>
+                            <Image
+                                loader={audioBookLoader}
+                                width={250}
+                                height={100}
+                                src={audioBookDetailsData.thumb_path}
+                                alt=""
+                                className={`img-fluid ${styles.audiBookImg}`}
+                            />
+
+                            <p className={`card-title ${styles.titleName}`}>{audioBookDetailsData.name}</p>
+                            <p className={`mb-0 ${styles.authorName}`} >{audioBookDetailsData.author_name} </p>
+                            <p className={styles.authorName} >{audioBookDetailsData.contributing_artists}</p>
                         </div>
 
                     </div>
 
-                    <div className={`mx-5 ${styles.audioPlayer}`}>
+                    <div className={`mx-5 ${styles.audioPlayer}`} >
 
-                        <div className="text-center">
-                            <input type="range" className="form-range" min="0" max="100" id="customRange1" />
+                        <div className="text-center" >
+                            <input type="range" max={duration} value={elapsed} defaultValue={0} style={{ width: "100%" }} />
                         </div>
 
                         <div className={`d-flex justify-content-between mx-2 ${styles.smText}`}>
-                            <p>00:00</p>
+                            <p>{formatTime(elapsed)}</p>
                             <p>16m</p>
-                            <p>-16:29</p>
+                            <p>{formatTime(duration - elapsed)}</p>
                         </div>
 
                         <div className="d-flex justify-content-between">
-                            <button className={styles.previusBtn}><i className="bi bi-skip-start-fill"></i></button>
-                            <button className={styles.backwardSkipBtn}><i className="bi bi-arrow-counterclockwise"></i></button>
-                            <button className={styles.playBtn}><i className="bi bi-play-circle-fill"></i></button>
-                            <button className={styles.forwardSkipBtn}><i className="bi bi-arrow-clockwise"></i></button>
-                            <button className={styles.nextBtn}><i className="bi bi-skip-end-fill"></i></button>
+                            <button onClick={toggleSkipBackward} className={styles.previusBtn}><i className="bi bi-skip-start-fill"></i></button>
+                            <button onClick={toggleBackward} className={styles.backwardSkipBtn}><i className="bi bi-arrow-counterclockwise"></i></button>
+                            <button onClick={togglePlay} className={styles.playBtn}>{isPlaying ? <i className="bi bi-pause-circle-fill"></i> : <i className="bi bi-play-circle-fill"></i>}</button>
+                            <button onClick={toggleForward} className={styles.forwardSkipBtn}><i className="bi bi-arrow-clockwise"></i></button>
+                            <button onClick={toggleSkipForward} className={styles.nextBtn}><i className="bi bi-skip-end-fill"></i></button>
                         </div>
 
                         <div className="d-flex justify-content-between mx-5">
@@ -57,16 +187,14 @@ const AudioPlayerComponent = () => {
                             </button>
 
                             <div className="offcanvas offcanvas-bottom h-auto" tabIndex={-1} id="offcanvasBottomSpeed" aria-labelledby="offcanvasBottomLabelSpeed">
-                                {/* <div className="offcanvas-header">
-                                    <h5 className="offcanvas-title" id="offcanvasBottomLabelSpeed">Offcanvas bottom</h5>
-                                </div> */}
+
                                 <div className={`offcanvas-body small ${styles.playBackSpeedBody}`}>
                                     <div className={styles.playBackSpeedHeader}>
                                         <p className="mt-3">Set Playback Speed</p>
                                     </div>
                                     <div className="m-5">
                                         <input type="range" className="form-range" min="0" max="2" step="0.01" id="speedRange" />
-                                        <p style={{color: "yellow"}}>1.0x</p>
+                                        <p style={{ color: "yellow" }}>1.0x</p>
                                         <button type="button" className={styles.speedClsBtn} data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
                                     </div>
                                 </div>
@@ -110,73 +238,21 @@ const AudioPlayerComponent = () => {
 
                                 <div className="row mx-1">
 
-                                    <div className="col-12 col-sm-12 col-md-12">
+                                    {audioBookDetailsData.episodes.map((episodes) => (
 
-                                        <Link href="/audio_player">
-
-                                            <div className={`mb-1 ${styles.playListCard}`}>
-                                                <div className="d-flex">
-                                                    <p className={`p-2 m-auto flex-grow-1 ${styles.episodesTitle}`}>1. ড্রাকুলা: ট্রেইলার </p>
-                                                    <Link href="#" className=" p-2 m-auto" ><i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i></Link>
-                                                </div>
-                                            </div>
-
-                                        </Link>
-                                    </div>
-
-                                    <div className="col-12 col-sm-12 col-md-12">
-                                        <Link href="/audio_player">
+                                        <div key={episodes.id} className="col-12 col-sm-12 col-md-12">
 
                                             <div className={`mb-1 ${styles.playListCard}`}>
                                                 <div className="d-flex">
-                                                    <p className={`p-2 m-auto flex-grow-1 ${styles.episodesTitle}`}>1. ড্রাকুলা: পর্ব ১ </p>
-                                                    <Link href="#" className=" p-2 m-auto" ><i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i></Link>
+                                                    <p className={`p-2 m-auto flex-grow-1 ${styles.episodesTitle}`} >{episodes.name}</p>
+                                                    {/* <Link href="#" className=" p-2 m-auto" ><i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i></Link> */}
+                                                    <button onClick={togglePlay} className={styles.playBtn}>{isPlaying ? <i className={`bi bi-pause-circle-fill ${styles.episodesPlayBtn}`}></i> : <i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i>}</button>
                                                 </div>
                                             </div>
 
-                                        </Link>
-                                    </div>
+                                        </div>
 
-                                    <div className="col-12 col-sm-12 col-md-12">
-
-                                        <Link href="/audio_player">
-
-                                            <div className={`mb-1 ${styles.playListCard}`}>
-                                                <div className="d-flex">
-                                                    <p className={`p-2 m-auto flex-grow-1 ${styles.episodesTitle}`}>1. ড্রাকুলা: পর্ব ২ </p>
-                                                    <Link href="#" className=" p-2 m-auto" ><i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i></Link>
-                                                </div>
-                                            </div>
-
-                                        </Link>
-
-                                    </div>
-
-                                    <div className="col-12 col-sm-12 col-md-12">
-                                        <Link href="/audio_player">
-
-                                            <div className={`mb-1 ${styles.playListCard}`}>
-                                                <div className="d-flex">
-                                                    <p className={`p-2 m-auto flex-grow-1 ${styles.episodesTitle}`}>1. ড্রাকুলা: পর্ব ৩ </p>
-                                                    <Link href="#" className=" p-2 m-auto" ><i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i></Link>
-                                                </div>
-                                            </div>
-
-                                        </Link>
-                                    </div>
-
-                                    <div className="col-12 col-sm-12 col-md-12">
-                                        <Link href="/audio_player">
-
-                                            <div className={`mb-1 ${styles.playListCard}`}>
-                                                <div className="d-flex">
-                                                    <p className={`p-2 m-auto flex-grow-1 ${styles.episodesTitle}`}>1. ড্রাকুলা: পর্ব ৪ </p>
-                                                    <Link href="#" className=" p-2 m-auto" ><i className={`bi bi-play-circle-fill ${styles.episodesPlayBtn}`}></i></Link>
-                                                </div>
-                                            </div>
-
-                                        </Link>
-                                    </div>
+                                    ))}
 
                                 </div>
                             </div>
@@ -185,7 +261,7 @@ const AudioPlayerComponent = () => {
 
                 </div>
 
-            </div>
+            </div> : <></>}
 
         </>
     );

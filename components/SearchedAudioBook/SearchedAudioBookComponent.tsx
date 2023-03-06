@@ -3,7 +3,9 @@ import Image from "next/image";
 import Router from "next/router";
 import Link from "next/link";
 
+
 const SearchedAudioBookComponent = () => {
+
     return (
         <>
 
@@ -17,7 +19,7 @@ const SearchedAudioBookComponent = () => {
                 <div className="row g-3 mx-2">
 
                     <div className="col-12 col-sm-12 col-md-4">
-                        
+
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
                                 <Image src="/img1.png" className="" height={120} width={120} alt="..." />
@@ -32,7 +34,7 @@ const SearchedAudioBookComponent = () => {
                     </div>
 
                     <div className="col-12 col-sm-12 col-md-4">
-                        
+
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
                                 <Image src="/img1.png" className="" height={120} width={120} alt="..." />
@@ -47,7 +49,7 @@ const SearchedAudioBookComponent = () => {
                     </div>
 
                     <div className="col-12 col-sm-12 col-md-4">
-                        
+
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
                                 <Image src="/img1.png" className="" height={120} width={120} alt="..." />
@@ -62,7 +64,7 @@ const SearchedAudioBookComponent = () => {
                     </div>
 
                     <div className="col-12 col-sm-12 col-md-4">
-                        
+
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
                                 <Image src="/img1.png" className="" height={120} width={120} alt="..." />
@@ -77,7 +79,7 @@ const SearchedAudioBookComponent = () => {
                     </div>
 
                     <div className="col-12 col-sm-12 col-md-4">
-                        
+
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
                                 <Image src="/img1.png" className="" height={120} width={120} alt="..." />
@@ -92,7 +94,7 @@ const SearchedAudioBookComponent = () => {
                     </div>
 
                     <div className="col-12 col-sm-12 col-md-4">
-                        
+
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
                                 <Image src="/img1.png" className="" height={120} width={120} alt="..." />

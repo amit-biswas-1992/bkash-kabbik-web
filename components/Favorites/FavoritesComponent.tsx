@@ -23,7 +23,7 @@ const Favorites = () => {
         favoriteAudioBookList();
     }, []);
 
-    const favoriteAudioBookList = async () => {
+    const favoriteAudioBookList: any = async () => {
 
         const data = await getFavoriteAudiobookList();
         if (data)
@@ -47,7 +47,7 @@ const Favorites = () => {
 
                         {favoriteAudioBookListData.map((favorite) => (
 
-                            <div className="col-4 col-sm-4 col-md-3 text-center">
+                            <div key={favorite.id} className="col-4 col-sm-4 col-md-3 text-center">
 
                                 <Link href="/audiobook_details">
 

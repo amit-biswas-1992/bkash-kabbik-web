@@ -12,6 +12,9 @@
   } */
 
 .activeMenu {
-    color: "white";
-    font-size: "20px";
+    color: white;
 }
+
+/* :target {
+    color: red;
+  } */

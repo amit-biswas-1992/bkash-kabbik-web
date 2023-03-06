@@ -1,11 +1,13 @@
 import styles from "../../styles/RatingReview.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import Router from "next/router";
 import ReactStars from 'react-stars'
-
+import Router, { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 const RatingReviewComponent = () => {
+
+    const [review, setreview] = useState('');
 
     return (
         <>

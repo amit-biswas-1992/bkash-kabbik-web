@@ -23,10 +23,6 @@ const Podcast = () => {
     }
 
     const myLoader = ({ src, width, quality }: any) => {
-        // console.log(src, "src");
-
-        // console.log(`${IMAGE_BASE_URL}${src}`);
-
         return `${src}?w=${width}&q=${quality || 75}`;
     };
 
@@ -40,11 +36,11 @@ const Podcast = () => {
 
                     {podcastListData.map((podcast) => (
 
-                        <div key={podcast.id} className="col-12 col-sm-6 col-md-6">
+                        <div key={podcast?.id} className="col-12 col-sm-6 col-md-6">
 
-                            <Link href={`audiobook_details/ ${podcast.id}`}>
+                            <Link href={`audiobook_details/${podcast?.id}`}>
 
-                                <div className={`d-flex justify-content-center align-items-center ${styles.podcastCard}`} >
+                                <div className={`d-flex  align-items-center ${styles.podcastCard}`} >
 
                                     <Image
                                         loader={myLoader}

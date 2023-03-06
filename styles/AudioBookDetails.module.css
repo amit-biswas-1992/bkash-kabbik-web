@@ -26,6 +26,17 @@
     max-height: 100px;
 } */
 
+.dropDownBtn {
+    color: #fff;
+    background: #091227;
+    border: none;
+    font-size: 16px;
+}
+
+.descriptionBody {
+    color: #bbbbbb;
+}
+
 .smText {
     color: #fff;
     font-size: 14px;
@@ -44,6 +55,12 @@
 
 .freeAudioText {
     color: #40ff00;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.premiumAudioText {
+    color: yellow;
     font-size: 14px;
     font-weight: 600;
 }
@@ -102,7 +119,7 @@
 .authorImg {
     border-radius: 50%;
     border: 2px solid #287EC3;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .authorImgEditLogo {
