@@ -1,72 +1,48 @@
 import Image from "next/image";
 import styles from "../../styles/OTP.module.css";
 import React, { useEffect, useState } from 'react';
-import OtpInput from 'react18-input-otp';
+// import OtpInput from 'react18-input-otp';
+import OtpInput from 'react-otp-input';
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { postSendOtp } from "../../services/api.service";
+import { postLoginApi, postVerifyOtp } from "../../services/api.service";
+
 
 const OTPComponent = () => {
 
     const navigate = useRouter();
 
     const [otp, setOtp] = useState('');
-    const [num, setNum] = useState("");
+    console.log(otp);
 
-    useEffect(() => {
-        const login_Data = JSON.parse(localStorage.getItem("msisdn") || '{}');
-    
-        setNum(login_Data);
-    
-      }, []);
+    // const [num, setNum] = useState("");
 
-    const handleChange = (otp: any) => {
-        setOtp(otp);
+    // const handleChange = (otp: any) => {
+    //     setOtp(otp);
+    // };
+
+    const otpHandler = (event: any) => {
+        console.log(event);
+        setOtp(event);
+
     };
 
-    const handleOTP = async () => {
-        if (otp == "") {
-          toast.info("Please fill the otp");
-          return;
-        }
-        const datakey = { msisdn: num, otp: otp };
-        const url = "/auth/otps/verify";
-        // navigate.push("../auth/info");
-        try {
+    const submitOTP = async (event: any) => {
+        console.log("hhhhhhhhhhhhhhh");
+        event.preventDefault()
 
-            if (otp.length === 4) {
-                console.log("matched");
-
-
-                const data = await postSendOtp(url, datakey);
-                console.log("varifyotp", data)
-                if (data.statusCode) {
-                    // console.log('this block')
-                    toast.warning("Invalid OTP");
-                    return;
-                }
-                if (data?.data.user?.isActive === false) {
-
-                    localStorage.setItem("user_token", data.data.token);
-                    navigate.push("../auth/info");
-                    toast.success("OTP varified");
-                } else {
-                    console.log(data.data.token);
-
-                    localStorage.setItem("user_token", data.data.token);
-
-                    navigate.push("../home");
-                    toast.success("OTP verified");
-                }
-
-            } else {
-                toast.warning("Invalid OTP");
+        const verifyOtpData = await postVerifyOtp(otp);
+        console.log('-----DEBUG------');
+        if(verifyOtpData && verifyOtpData.verified) {
+            const loginData = await postLoginApi()
+            if(loginData.token) {
+                localStorage.setItem("user_token", loginData.token);
+                navigate.push("/");
             }
-        } catch (error: any) {
-            toast.warning("Invalid OTP");
+            console.log(loginData);
         }
-
+        console.log('-----DEBUG------');
 
     };
 
@@ -85,26 +61,30 @@ const OTPComponent = () => {
                         <p className={`text-center ${styles.text_color}`}>An OTP was sent to 8801845904030 </p>
                     </div>
 
-                    <div className="p-2 mx-2">
+                    <form onSubmit={submitOTP}>
 
-                        <OtpInput
-                            value={otp}
-                            onChange={handleChange}
-                            numInputs={6}
-                            separator={<span>" "</span>}
-                            isInputNum={true}
-                            inputStyle={styles.otpInputField}
-                        />;
+                        <div className="p-2 mx-2">
 
-                    </div>
+                            <OtpInput
+                                value={otp}
+                                onChange={otpHandler}
+                                numInputs={6}
+                                separator={<span>" "</span>}
+                                isInputNum={true}
+                                inputStyle={styles.otpInputField}
+                            />;
 
-                    <div className="text-center">
-                        <p className={` ${styles.text_color}`} >Resend OTP</p>
-                    </div>
+                        </div>
 
-                    <div className="d-flex justify-content-center align-items-center mt-3 mx-4">
-                        <button type="submit" onClick={handleOTP} className={`btn btn-success ${styles.otp_btn}`}>Submit</button>
-                    </div>
+                        <div className="text-center">
+                            <p className={` ${styles.text_color}`} >Resend OTP</p>
+                        </div>
+
+                        <div className="d-flex justify-content-center align-items-center mt-3 mx-4">
+                            <button type="submit" className={`btn btn-success ${styles.otp_btn}`}>Submit</button>
+                        </div>
+
+                    </form>
 
                 </div>
 

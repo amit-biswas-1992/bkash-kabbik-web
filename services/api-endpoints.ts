@@ -20,4 +20,6 @@ export const apiEndPoints = {
     favoritesPost: `${BASE_URL}/v1/favs`,
     userProfile: `${BASE_URL}/v1/users/9760`,
     sendOtp: `${BASE_URL}/v1/auth/otpnew`,
+    verifyOtp: `${BASE_URL}/v1/auth/otp/verify`,
+    loginApi: `${BASE_URL}/v2/auth/login`,
 }

@@ -1,30 +1,45 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "../../styles/Login.module.css";
-import { postSendOtp} from "../../services/api.service";
+import { postSendOtp } from "../../services/api.service";
+import { useRouter } from "next/router";
+import JwtTokenDecoder from "../../utils/globalfunction";
 
 
 export default function LoginComponent() {
 
+    const navigate = useRouter();
+
     const [msisdn, setMsisdn] = useState('');
+
+    const isToken = useCallback(async () => {
+
+        console.log('-------------------VALIDATION-------------------')
+        console.log(JwtTokenDecoder())
+        console.log('-------------------VALIDATION-------------------')
+
+        if (JwtTokenDecoder())
+
+            await navigate.push('/')
+
+    }, [navigate]);
+
+    useEffect(() => {
+        isToken();
+    }, [navigate]);
 
     const msisdnHandler = (event: any) => {
         setMsisdn(event.target.value);
         console.log(msisdn);
     };
 
-    const submitForm = async (event: any) =>{
+    const submitForm = async (event: any) => {
         console.log("hhhhhhhhhhhhhhh");
         event.preventDefault()
-        
-        // const data = await loginApi(apiEndPoints.sendOtp, {
-        //     msisdn: msisdn,
-        //     currentTimeLong : Date.now()
-        // });
-        // if (data)
-        //     console.log(data);
 
         const data = await postSendOtp(msisdn);
+        localStorage.setItem("msisdn", msisdn);
+        navigate.push("/otp");
 
     };
 
@@ -45,7 +60,7 @@ export default function LoginComponent() {
 
                 <div className="p-2">
 
-                    <form  onSubmit={submitForm} >
+                    <form onSubmit={submitForm} >
                         <div className="form-group">
                             <label className={`form-label ${styles.text_color}`} htmlFor="msisdnLabel">মোবাইল নাম্বার দিন</label>
                             <div className="input-group">
@@ -55,7 +70,7 @@ export default function LoginComponent() {
                         </div>
 
                         <div className="d-flex justify-content-center align-items-center mt-3">
-                            <button type="submit"className={`btn btn-primary ${styles.otp_btn}`}>ওটিপি পাঠান</button>
+                            <button type="submit" className={`btn btn-primary ${styles.otp_btn}`}>ওটিপি পাঠান</button>
                         </div>
 
                         <div>

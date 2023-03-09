@@ -11,10 +11,13 @@ import TopBannerImageInfo from "../../models/TopBannerImageInfo";
 import HomeInfo from "../../models/HomeInfo";
 import PromoBannerInfo from "../../models/PromoBannerInfo";
 import CatagorySuggestionsInfo from "../../models/CatagorySuggestionsInfo";
-import React, { useEffect, useState } from "react";
-import Router from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
+import JwtTokenDecoder from "../../utils/globalfunction";
 
 export default function Home() {
+
+    const router = useRouter();
 
     const [topbannerImageData, settopbannerImageData] = useState<TopBannerImageInfo[]>();
     const [homeData, sethomeData] = useState<HomeInfo[]>();
@@ -22,7 +25,28 @@ export default function Home() {
     const [catagorySuggData, setcatagorySuggData] = useState<CatagorySuggestionsInfo[]>();
 
     console.log(topbannerImageData);
-    console.log('data',catagorySuggData);
+    console.log('data', catagorySuggData);
+
+    const isToken = useCallback ( async () => {
+        console.log('-------------------VALIDATION-------------------')
+        console.log(JwtTokenDecoder())
+        console.log('-------------------VALIDATION-------------------')
+
+        // if(JwtTokenDecoder()!= null &&  JwtTokenDecoder().phone != null && JwtTokenDecoder().phone != ''){
+
+        // } else await router.push('/login')
+
+        if (JwtTokenDecoder()) {
+
+        } else
+            await router.push('/login')
+
+    }, [router]);
+
+    useEffect(() => {
+
+        isToken();
+    }, [router]);
 
     useEffect(() => {
         topBannerImage();
@@ -259,7 +283,8 @@ export default function Home() {
 
                         {homeData?.map((homeinfo: any, index: any) => (
 
-                            <>
+                            <div key={homeinfo.name}>
+
                                 <div className="d-flex justify-content-between align-items-center mb-2 mx-1">
                                     <Link href="#" style={{ fontSize: "18px", color: "white" }}>{homeinfo.name} </Link>
                                     <Link href="#" className={styles.textColor}>See More</Link>
@@ -342,10 +367,10 @@ export default function Home() {
 
                                     </section> : <></>}
 
-                                { catagorySuggData && index == 4  ?
+                                {catagorySuggData && index == 4 ?
 
                                     <section className="section5 mx-2 mb-4">
-                                        
+
                                         <div className="d-flex justify-content-between align-items-center">
                                             <p style={{ color: "white" }}>Browse by Catagory</p>
                                             <Link href="/audiobook_search"><p style={{ color: "white" }}><i className="bi bi-chevron-down"></i> Show more</p></Link>
@@ -368,7 +393,7 @@ export default function Home() {
 
                                     </section> : <></>}
 
-                            </>
+                            </div>
 
                         ))}
 

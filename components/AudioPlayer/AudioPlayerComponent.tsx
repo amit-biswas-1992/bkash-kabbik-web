@@ -6,7 +6,8 @@ import dynamic from "next/dynamic";
 import { useRouter } from 'next/router'
 import { getAudioBookDetails, getAuthorDetails, getCastCrewDetails, getRatingReviewList } from "../../services/api.service";
 import AudioBookDetailsInfo from "../../models/AudioBookDetailsInfo";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import JwtTokenDecoder from "../../utils/globalfunction";
 
 
 
@@ -18,6 +19,27 @@ const AudioPlayerComponent = () => {
 
     const [audioBookDetailsData, setaudioBookDetailsData] = useState<AudioBookDetailsInfo>();
     const [playList, setPlayList] = useState([]);
+
+    const isToken = useCallback(async () => {
+        console.log('-------------------VALIDATION-------------------')
+        console.log(JwtTokenDecoder())
+        console.log('-------------------VALIDATION-------------------')
+
+        // if(JwtTokenDecoder()!= null &&  JwtTokenDecoder().phone != null && JwtTokenDecoder().phone != ''){
+
+        // } else await router.push('/login')
+
+        if (JwtTokenDecoder()) {
+
+        } else
+            await router.push('/login')
+
+    }, [router]);
+
+    useEffect(() => {
+
+        isToken();
+    }, [router]);
 
 
     const audioPlayer: any = useRef(null);

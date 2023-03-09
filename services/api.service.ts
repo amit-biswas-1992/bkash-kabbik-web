@@ -2,6 +2,7 @@ import { AnyCnameRecord } from "dns";
 import { apiEndPoints } from "./api-endpoints";
 
 const myHeaders = new Headers();
+// const userToken = localStorage.getItem("token");
 myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTc2MCIsInJvbGUiOjEsImlhdCI6MTY3Njg3NjI3OH0.Ll1915AVcmLzRJ473jyjWo_1NIWxneFMVA8OCcWRp4k");
 myHeaders.append("Content-Type", "application/json");
 
@@ -342,12 +343,61 @@ export const postFavorites = async () => {
 
 };
 
+export const postVerifyOtp = async (otp: any) => {
+    const url = apiEndPoints.verifyOtp;
+    const raw = JSON.stringify({
+        msisdn : `88${localStorage.getItem("msisdn")}`,
+        password : otp,
+    });
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
 export const postSendOtp = async (msisdn: any) => {
     const url = apiEndPoints.sendOtp;
     const currentTimeLong = Date.now();
     const raw = JSON.stringify({
-        msisdn : msisdn,
+        msisdn : `88${msisdn}`,
         currentTimeLong : currentTimeLong
+    });
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
+export const postLoginApi = async () => {
+    const url = apiEndPoints.loginApi;
+    const raw = JSON.stringify({
+        user_name: `88${localStorage.getItem("msisdn")}`,
+        full_name: "user",
+        auth_src: "phone",
+        image_url: null,
+        channel: "web"
     });
     const requestOptions = {
         method: 'POST',
