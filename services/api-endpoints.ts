@@ -22,4 +22,5 @@ export const apiEndPoints = {
     sendOtp: `${BASE_URL}/v1/auth/otpnew`,
     verifyOtp: `${BASE_URL}/v1/auth/otp/verify`,
     loginApi: `${BASE_URL}/v2/auth/login`,
+    addReview: `${BASE_URL}/v2/audiobooks/`,
 }

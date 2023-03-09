@@ -2,7 +2,7 @@ import { AnyCnameRecord } from "dns";
 import { apiEndPoints } from "./api-endpoints";
 
 const myHeaders = new Headers();
-// const userToken = localStorage.getItem("token");
+// const userToken = localStorage.getItem("user_token");
 myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTc2MCIsInJvbGUiOjEsImlhdCI6MTY3Njg3NjI3OH0.Ll1915AVcmLzRJ473jyjWo_1NIWxneFMVA8OCcWRp4k");
 myHeaders.append("Content-Type", "application/json");
 
@@ -398,6 +398,30 @@ export const postLoginApi = async () => {
         auth_src: "phone",
         image_url: null,
         channel: "web"
+    });
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
+export const postReview = async (id: any, rating_num: any, review: any) => {
+    const url =`${apiEndPoints.addReview}${id}/analytics/ratings `;
+    const raw = JSON.stringify({
+        rating: rating_num,
+        review: review,
+        user_id: localStorage.getItem("user_id"),
     });
     const requestOptions = {
         method: 'POST',

@@ -50,9 +50,9 @@ const AudioBookDeatilsComponent = () => {
         const data = await getAudioBookDetails(id);
         if (data)
             setaudioBookDetailsData(data);
-            authorDetails(data.author_name);
-            castCrewDetails(data.contributing_artists);
-            ratingReviewList(data.id);
+        authorDetails(data.author_name);
+        castCrewDetails(data.contributing_artists);
+        ratingReviewList(data.id);
     }
 
     const authorDetails = async (author_name: any) => {
@@ -100,7 +100,7 @@ const AudioBookDeatilsComponent = () => {
     }
 
     return (
-        
+
         <> {audioBookDetailsData ? <div>
 
             <div className={` ${styles.backBtn}`}>
@@ -144,7 +144,7 @@ const AudioBookDeatilsComponent = () => {
                             </button>
                         </div>
                         <div className="mx-2">
-                            <Link href="audio_player" className={`d-flex align-items-center ${styles.listenNowBtn}`}>
+                            <Link href={`/audio_player/${audioBookDetailsData?.id}`} className={`d-flex align-items-center ${styles.listenNowBtn}`}>
                                 <i className="bi bi-play-circle-fill mx-1" style={{ fontSize: "20px" }}></i>
                                 <p className="mb-0" >এখানে শুনুন</p>
                             </Link>
@@ -171,7 +171,7 @@ const AudioBookDeatilsComponent = () => {
 
                     <div className="text-center mt-3">
                         <Link href="#" className="d-flex justify-content-center align-items-center">
-                            
+
                             <p style={{ color: "goldenrod" }}>
 
                                 {
@@ -317,7 +317,7 @@ const AudioBookDeatilsComponent = () => {
 
                                         <div key={castcrew?.id} className="col-12 col-sm-12 col-md-12">
 
-                                            <Link href={`/cast_crew_details/${castcrew?.name}`}> 
+                                            <Link href={`/cast_crew_details/${castcrew?.name}`}>
                                                 <div className={`card mb-3 ${styles.authorCard}`}>
                                                     <div className="d-flex">
                                                         <div className="">
@@ -369,11 +369,11 @@ const AudioBookDeatilsComponent = () => {
 
                                 <div className="row py-3 g-3 mx-2">
 
-                                    <div className="text-center">
-                                        <Link href="/rating_review" type="submit" className={`${styles.addReviewBtn}`}>
+                                    {audioBookDetailsData ? <div className="text-center"> 
+                                        <Link href={`/rating_review/${audioBookDetailsData?.id}`} type="submit" className={`${styles.addReviewBtn}`}>
                                             <span className="mt-2 d-flex justify-content-center">ADD REVIEW</span>
                                         </Link>
-                                    </div>
+                                    </div> : <></>}
 
                                     {ratingReviewData?.map((rating) => (
 

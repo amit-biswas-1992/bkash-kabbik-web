@@ -38,6 +38,7 @@ const OTPComponent = () => {
             const loginData = await postLoginApi()
             if(loginData.token) {
                 localStorage.setItem("user_token", loginData.token);
+                localStorage.setItem("user_id", loginData.user.id);
                 navigate.push("/");
             }
             console.log(loginData);

@@ -10,7 +10,6 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import JwtTokenDecoder from "../../utils/globalfunction";
 
 
-
 const AudioPlayerComponent = () => {
 
     const router = useRouter()
@@ -101,12 +100,6 @@ const AudioPlayerComponent = () => {
 
         // audioBookplayer(audioBookDetailsData?.episodes);
 
-        // if (audioPlayer) {
-        //     console.log(audioPlayer.current);
-        //     audioPlayer.current.volume = volume / 100;
-        // };
-
-
         if (isPlaying) {
             setInterval(() => {
                 const _duration = Math.floor(audioPlayer?.current?.duration);
@@ -177,6 +170,7 @@ const AudioPlayerComponent = () => {
                             <p className={`card-title ${styles.titleName}`}>{audioBookDetailsData.name}</p>
                             <p className={`mb-0 ${styles.authorName}`} >{audioBookDetailsData.author_name} </p>
                             <p className={styles.authorName} >{audioBookDetailsData.contributing_artists}</p>
+
                         </div>
 
                     </div>

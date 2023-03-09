@@ -94,7 +94,7 @@ const Subscribe = () => {
                     </div>}
 
 
-                    <div className="offcanvas offcanvas-bottom h-auto" tabIndex={-1} id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style={{ background: "#0C1B3E" }}>
+                    {packListData.length > 0 && <div className="offcanvas offcanvas-bottom h-auto" tabIndex={-1} id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style={{ background: "#0C1B3E" }}>
                         
                         <div className="offcanvas-header">
                             <h5 className="offcanvas-title" id="offcanvasBottomLabel"></h5>
@@ -103,8 +103,8 @@ const Subscribe = () => {
 
                         <div className="offcanvas-body small">
                             <div className="container d-flex justify-content-between align-items-center" style={{ color: "white" }}>
-                                <h4>অর্ধবার্ষিকী</h4>
-                                <h4>৳ ২০০</h4>
+                                <h4>{packListData[0].name}</h4>
+                                <h4>{packListData[0].amount}</h4>
                             </div>
 
                             <hr className={styles.dashedLine} />
@@ -154,7 +154,7 @@ const Subscribe = () => {
 
                         </div>
 
-                    </div>
+                    </div>}
 
                     <div className="offcanvas offcanvas-bottom h-auto " tabIndex={-1} id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel1" style={{ background: "#343a40" }}>
                         <div className="offcanvas-header">
