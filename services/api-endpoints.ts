@@ -25,5 +25,6 @@ export const apiEndPoints = {
     addReview: `${BASE_URL}/v2/audiobooks/`,
     favPostApi: `${BASE_URL}/v1/favs`,
     favDeleteApi: `${BASE_URL}/v1/favs`,
-    searchApi: `${BASE_URL}/v2/core/search`
+    searchApi: `${BASE_URL}/v2/core/search`,
+    upComingApi: `${BASE_URL}/v4/upcoming`,
 }

@@ -25,7 +25,7 @@ export default function Footer() {
                         <Link className={` ${styles.target} ${router.pathname === '/'? styles.activeMenu: ''}`} href="/"><FontAwesomeIcon icon={faHome} style={{ fontSize: "20px" }} /></Link> {/*active menu*/}
                     </div>
                     <div className="col">
-                        <Link className={` ${styles.target} ${router.pathname === '/premium_audiobooks'? styles.activeMenu: ''}`} href="/premium_audiobooks"><FontAwesomeIcon icon={faCrown} style={{ fontSize: "20px" }} /></Link>
+                        <Link className={` ${styles.target} ${router.pathname === '/upcoming'? styles.activeMenu: ''}`} href="/upcoming"><FontAwesomeIcon icon={faCrown} style={{ fontSize: "20px" }} /></Link>
                     </div>
                     <div className="col">
                         <Link className={` ${styles.target} ${router.pathname === '/library'? styles.activeMenu: ''}`} href="/library"><MdOutlineLibraryMusic style={{ fontSize: "24px" }} /></Link>

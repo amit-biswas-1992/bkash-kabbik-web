@@ -26,7 +26,7 @@ const Premium = () => {
         if (data)
             setpremiumAudiobookListData(data);
 
-    }
+    };
 
     return (
 

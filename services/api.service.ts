@@ -95,6 +95,24 @@ export const getPremiumAudiobookList = async () => {
 
 };
 
+export const getUpcomingAudiobookList = async () => {
+    const url = apiEndPoints.upComingApi;
+    const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
 export const getFavoriteAudiobookList = async () => {
     const url = apiEndPoints.favoriteAudioBookList;
     const requestOptions = {

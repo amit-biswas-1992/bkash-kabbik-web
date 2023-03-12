@@ -23,7 +23,7 @@ const AudioBookDeatilsComponent = () => {
     const [castCrewData, setcastCrewData] = useState<castCrewInfo[]>()
     const [ratingReviewData, setratingReviewData] = useState<RatingReviewInfo[]>()
     const [favData, setFavData] = useState();
-    const [isFav, setIsfav] = useState(false);
+    const [isFav, setIsfav] = useState();
 
     console.log('audioBookDetailsData');
     console.log(audioBookDetailsData);
@@ -80,12 +80,14 @@ const AudioBookDeatilsComponent = () => {
     const favSubmit = async (event: any) => {
         console.log("hhhhhhhhhhhhhhh");
 
-        if (!isFav) {
-            const fav = await postFavoritesApi(id);
-        } else {
+        // if (isFav) {
             const fav = await deleteFavoritesApi(id);
-            setIsfav(false);
-        }
+
+        // }
+        //  else {
+        //     const fav = await postFavoritesApi(id);
+        //     setIsfav(false);
+        // }
 
 
 
@@ -162,7 +164,7 @@ const AudioBookDeatilsComponent = () => {
                         <div className="mx-2">
 
                             <button onClick={favSubmit} className={`d-flex align-items-center ${styles.favBtn}`} >
-                                <i className="bi bi-heart-fill mx-1" style={{ fontSize: "20px", color: `${ !isFav ? "red" : "grey"}` }}></i>
+                                <i className="bi bi-heart-fill mx-1" style={{ fontSize: "20px", color: `${ isFav ? "red" : "grey"}` }}></i>
                                 <p className="mb-0">Favourite</p>
                             </button>
 
