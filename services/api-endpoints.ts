@@ -6,7 +6,7 @@ export const apiEndPoints = {
     promoBannerList: `${BASE_URL}/v4/home/home-banner-list`,
     podcastList: `${BASE_URL}/v1/audiobooks/podcast-audiobooks`,
     premuimAudioBookList: `${BASE_URL}/v1/audiobooks/premium-audiobooks`,
-    favoriteAudioBookList: `${BASE_URL}/v1/favs/user-favs?user_id=9760`,
+    favoriteAudioBookList: `${BASE_URL}/v1/favs/user-favs`,
     audioBookDetails: `${BASE_URL}/v3/audiobooks/`,
     authorDetails: `${BASE_URL}/v1/audiobooks/authors/?name=`,
     authorEpisodes: `${BASE_URL}/v1/audiobooks/authors/authorepisodes?name=`,

@@ -114,7 +114,7 @@ export const getUpcomingAudiobookList = async () => {
 };
 
 export const getFavoriteAudiobookList = async () => {
-    const url = apiEndPoints.favoriteAudioBookList;
+    const url = `${apiEndPoints.favoriteAudioBookList}?user_id=${localStorage.getItem("user_id")}`;
     const requestOptions = {
         method: 'GET',
         headers: myHeaders,
@@ -132,7 +132,7 @@ export const getFavoriteAudiobookList = async () => {
 };
 
 export const getAudioBookDetails = async (id: any) => {
-    const url = `${apiEndPoints.audioBookDetails}/${id} `;
+    const url = `${apiEndPoints.audioBookDetails}/${id}?user_id=${localStorage.getItem("user_id")}`;
     const requestOptions = {
         method: 'GET',
         headers: myHeaders,
@@ -362,12 +362,10 @@ export const postFavoritesApi = async (id: any) => {
 };
 
 export const deleteFavoritesApi = async (id: any) => {
-    const url = apiEndPoints.favDeleteApi;
-    const raw = "";
+    const url = `${apiEndPoints.favDeleteApi}?audiobook_id=${id}&user_id=${localStorage.getItem("user_id")}`;
     const requestOptions = {
         method: 'DELETE',
         headers: myHeaders,
-        body: raw,
     };
 
     try {
@@ -501,28 +499,3 @@ export const postSearch = async (search_text: any) => {
 
 };
 
-// export const loginApi = async (endpoint: string, options: any = {}) => {
-//     const myHeaders = new Headers();
-//     myHeaders.append("Content-Type", "application/json");
-  
-//     const raw = JSON.stringify(options);
-//     console.log(options, "options");
-//     const requestOptions = {
-//       method: "POST",
-//       headers: myHeaders,
-//       body: raw,
-//     };
-//     console.log(raw, "raw");
-//     const url = `${endpoint}`;
-  
-//     try {
-//       console.log(url, "url");
-  
-//       const fetchResponse = await fetch(url, requestOptions);
-  
-//       const data = await fetchResponse.json();
-//       return data;
-//     } catch (e) {
-//       return e;
-//     }
-//   };

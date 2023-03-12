@@ -23,7 +23,7 @@ const AudioBookDeatilsComponent = () => {
     const [castCrewData, setcastCrewData] = useState<castCrewInfo[]>()
     const [ratingReviewData, setratingReviewData] = useState<RatingReviewInfo[]>()
     const [favData, setFavData] = useState();
-    const [isFav, setIsfav] = useState();
+    const [isFav, setIsfav] = useState(false);
 
     console.log('audioBookDetailsData');
     console.log(audioBookDetailsData);
@@ -52,7 +52,7 @@ const AudioBookDeatilsComponent = () => {
         const data = await getAudioBookDetails(id);
         if (data)
             setaudioBookDetailsData(data);
-            setIsfav(data.is_favorite);
+        setIsfav(data.is_favorite);
         authorDetails(data.author_name);
         castCrewDetails(data.contributing_artists);
         ratingReviewList(data.id);
@@ -80,14 +80,14 @@ const AudioBookDeatilsComponent = () => {
     const favSubmit = async (event: any) => {
         console.log("hhhhhhhhhhhhhhh");
 
-        // if (isFav) {
+        if (isFav) {
             const fav = await deleteFavoritesApi(id);
-
-        // }
-        //  else {
-        //     const fav = await postFavoritesApi(id);
-        //     setIsfav(false);
-        // }
+            setIsfav(false);
+        }
+        else {
+            const fav = await postFavoritesApi(id);
+            setIsfav(true);
+        }
 
 
 
@@ -164,7 +164,7 @@ const AudioBookDeatilsComponent = () => {
                         <div className="mx-2">
 
                             <button onClick={favSubmit} className={`d-flex align-items-center ${styles.favBtn}`} >
-                                <i className="bi bi-heart-fill mx-1" style={{ fontSize: "20px", color: `${ isFav ? "red" : "grey"}` }}></i>
+                                <i className="bi bi-heart-fill mx-1" style={{ fontSize: "20px", color: `${isFav ? "red" : "grey"}` }}></i>
                                 <p className="mb-0">Favourite</p>
                             </button>
 
