@@ -23,4 +23,7 @@ export const apiEndPoints = {
     verifyOtp: `${BASE_URL}/v1/auth/otp/verify`,
     loginApi: `${BASE_URL}/v2/auth/login`,
     addReview: `${BASE_URL}/v2/audiobooks/`,
+    favPostApi: `${BASE_URL}/v1/favs`,
+    favDeleteApi: `${BASE_URL}/v1/favs`,
+    searchApi: `${BASE_URL}/v2/core/search`
 }

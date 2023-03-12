@@ -320,11 +320,11 @@ export const getUserProfile = async () => {
 
 };
 
-export const postFavorites = async () => {
-    const url = apiEndPoints.favoritesPost;
+export const postFavoritesApi = async (id: any) => {
+    const url = apiEndPoints.favPostApi;
     const raw = JSON.stringify({
-        "user_id": "9760",
-        "audiobook_id": 1311
+        user_id: localStorage.getItem("user_id"),
+        audiobook_id: id,
     });
     const requestOptions = {
         method: 'POST',
@@ -342,6 +342,27 @@ export const postFavorites = async () => {
     }
 
 };
+
+export const deleteFavoritesApi = async (id: any) => {
+    const url = apiEndPoints.favDeleteApi;
+    const raw = "";
+    const requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: raw,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
 
 export const postVerifyOtp = async (otp: any) => {
     const url = apiEndPoints.verifyOtp;
@@ -422,6 +443,28 @@ export const postReview = async (id: any, rating_num: any, review: any) => {
         rating: rating_num,
         review: review,
         user_id: localStorage.getItem("user_id"),
+    });
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
+export const postSearch = async (search_text: any) => {
+    const url = apiEndPoints.searchApi;
+    const raw = JSON.stringify({
+        text: search_text,
     });
     const requestOptions = {
         method: 'POST',

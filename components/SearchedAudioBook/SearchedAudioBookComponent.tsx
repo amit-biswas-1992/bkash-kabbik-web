@@ -2,23 +2,81 @@ import styles from "../../styles/SearchedAudioBook.module.css";
 import Image from "next/image";
 import Router from "next/router";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import HomeInfo from "../../models/HomeInfo";
+import { postSearch } from "../../services/api.service";
 
 
 const SearchedAudioBookComponent = () => {
+
+    const [searchvalue, setSearchvalue]: any = useState();
+    const [searchData, setSearchData] = useState('');
+    // const [isLoading, setIsLoading] = useState(false);
+
+    const searchHandler = (event: any) => {
+        console.log(searchData);
+        setSearchData(event.target.value);
+    };
+
+    const searchSubmit = async (event: any) => {
+        console.log("hhhhhhhhhhhhhhh");
+        event.preventDefault();
+        const reviewData = await postSearch(searchData);
+        setSearchvalue(reviewData.data);
+        console.log('response', reviewData.data[0]);
+    };
+
+    const myLoader = ({ src, width, quality }: any) => {
+        return `${src}?w=${width}&q=${quality || 75}`;
+    };
 
     return (
         <>
 
             <div className={`input-group mt-1 ${styles.srcInputForm}`}>
                 <button onClick={() => Router.back()} className={`input-group-text ${styles.inputSearchLogo}`} id="basic-addon"><i className="bi bi-arrow-left mx-2"></i></button>
-                <input type="search" className={`form-control ${styles.srcForm}`} placeholder="Search for Audiobooks, Authors..." aria-label="Search" aria-describedby="basic-addon" />
+                <form onSubmit={searchSubmit}>
+                    <input type="search" onChange={searchHandler} className={`form-control ${styles.srcForm}`} placeholder="Search for Audiobooks, Authors..." />
+                </form>
             </div>
 
-            <div className={`mb-5 mt-2 ${styles.favoritesPage}`}>
+            {searchvalue ? <div className={`mb-5 mt-2 ${styles.favoritesPage}`}>
 
                 <div className="row g-3 mx-2">
 
-                    <div className="col-12 col-sm-12 col-md-4">
+                    {searchvalue?.map((value: any) => (
+
+                        <div key={value?.id} className="col-12 col-sm-12 col-md-4">
+
+                            <Link href={`audiobook_details/${value?.id}`}>
+
+                                <div className={` ${styles.audioBookCard}`} >
+
+                                    <Image
+                                        loader={myLoader}
+                                        width={120}
+                                        height={120}
+                                        src={value.thumb_path}
+                                        alt=""
+                                        className=""
+                                    />
+
+                                    <div className="py-2 mx-2">
+                                        <h6 className={`${styles.titleName}`} >{value.name}</h6>
+                                        <p className={`mb-1 ${styles.authorName}`}><small>{value.author_name}</small></p>
+                                        <p className={`mb-0 text-muted ${styles.narratorName}`}><small>{value.contributing_artists}</small></p>
+                                    </div>
+
+                                </div>
+
+                            </Link>
+
+                        </div>
+
+                    ))}
+
+                    {/* <div className="col-12 col-sm-12 col-md-4">
 
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
@@ -31,24 +89,9 @@ const SearchedAudioBookComponent = () => {
                             </div>
                         </Link>
 
-                    </div>
+                    </div> */}
 
-                    <div className="col-12 col-sm-12 col-md-4">
-
-                        <Link href="/audiobookdetails">
-                            <div className={` ${styles.audioBookCard}`} >
-                                <Image src="/img1.png" className="" height={120} width={120} alt="..." />
-                                <div className="py-2 mx-2">
-                                    <h6 className={`${styles.titleName}`} >Vuture Kando</h6>
-                                    <p className={`mb-1 ${styles.authorName}`}><small>Harinarayan Chattopadhay</small></p>
-                                    <p className={`mb-0 text-muted ${styles.narratorName}`}><small>Faheem Noman</small></p>
-                                </div>
-                            </div>
-                        </Link>
-
-                    </div>
-
-                    <div className="col-12 col-sm-12 col-md-4">
+                    {/* <div className="col-12 col-sm-12 col-md-4">
 
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
@@ -61,24 +104,9 @@ const SearchedAudioBookComponent = () => {
                             </div>
                         </Link>
 
-                    </div>
+                    </div> */}
 
-                    <div className="col-12 col-sm-12 col-md-4">
-
-                        <Link href="/audiobookdetails">
-                            <div className={` ${styles.audioBookCard}`} >
-                                <Image src="/img1.png" className="" height={120} width={120} alt="..." />
-                                <div className="py-2 mx-2">
-                                    <h6 className={`${styles.titleName}`} >Vuture Kando</h6>
-                                    <p className={`mb-1 ${styles.authorName}`}><small>Harinarayan Chattopadhay</small></p>
-                                    <p className={`mb-0 text-muted ${styles.narratorName}`}><small>Faheem Noman</small></p>
-                                </div>
-                            </div>
-                        </Link>
-
-                    </div>
-
-                    <div className="col-12 col-sm-12 col-md-4">
+                    {/* <div className="col-12 col-sm-12 col-md-4">
 
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
@@ -91,9 +119,9 @@ const SearchedAudioBookComponent = () => {
                             </div>
                         </Link>
 
-                    </div>
+                    </div> */}
 
-                    <div className="col-12 col-sm-12 col-md-4">
+                    {/* <div className="col-12 col-sm-12 col-md-4">
 
                         <Link href="/audiobookdetails">
                             <div className={` ${styles.audioBookCard}`} >
@@ -106,11 +134,26 @@ const SearchedAudioBookComponent = () => {
                             </div>
                         </Link>
 
-                    </div>
+                    </div> */}
+
+                    {/* <div className="col-12 col-sm-12 col-md-4">
+
+                        <Link href="/audiobookdetails">
+                            <div className={` ${styles.audioBookCard}`} >
+                                <Image src="/img1.png" className="" height={120} width={120} alt="..." />
+                                <div className="py-2 mx-2">
+                                    <h6 className={`${styles.titleName}`} >Vuture Kando</h6>
+                                    <p className={`mb-1 ${styles.authorName}`}><small>Harinarayan Chattopadhay</small></p>
+                                    <p className={`mb-0 text-muted ${styles.narratorName}`}><small>Faheem Noman</small></p>
+                                </div>
+                            </div>
+                        </Link>
+
+                    </div> */}
 
                 </div>
 
-            </div>
+            </div> : <></>}
 
         </>
     );

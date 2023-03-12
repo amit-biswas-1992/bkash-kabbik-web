@@ -46,7 +46,6 @@ const RatingReviewComponent = () => {
     const submitForm = async (event: any) => {
         console.log("hhhhhhhhhhhhhhh");
         event.preventDefault()
-
         const reviewData = await postReview(id, star, review);
     };
 
@@ -79,8 +78,6 @@ const RatingReviewComponent = () => {
                                 alt=""
                                 className={`img-fluid ${styles.audiBookImg}`}
                             />
-
-                            {/* <Image src="/drakula.jpeg" height={100} width={100} className={`img-fluid ${styles.audiBookImg}`} alt="..." /> */}
 
                             <p className={`card-title my-2 ${styles.bgText}`}>{audioBookDetailsData.name}</p>
 

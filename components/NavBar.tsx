@@ -10,7 +10,7 @@ export default function NavBar() {
                 <div className="container-fluid">
 
                     <div className="d-flex flex-grow-1 align-items-center">
-                        <Link className="navbar-brand" href="#">
+                        <Link className="navbar-brand" href="/">
                             <Image src="/kabbik_logo.svg" alt="Logo" width={55} height={55} className="d-inline-block align-text-top my-1 img-fluid" />
                         </Link>
                         <div className={styles.navPageName} >Premium</div>

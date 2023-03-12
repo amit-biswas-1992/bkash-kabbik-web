@@ -4,7 +4,7 @@ import Router from "next/router";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRouter } from 'next/router'
-import { getAudioBookDetails, getAuthorDetails, getCastCrewDetails, getRatingReviewList } from "../../services/api.service";
+import { deleteFavoritesApi, getAudioBookDetails, getAuthorDetails, getCastCrewDetails, getRatingReviewList, postFavoritesApi } from "../../services/api.service";
 import AudioBookDetailsInfo from "../../models/AudioBookDetailsInfo";
 import AuthorInfo from "../../models/AuthorInfo";
 import RatingReviewInfo from "../../models/RatingReviewInfo"
@@ -22,6 +22,8 @@ const AudioBookDeatilsComponent = () => {
     const [authorData, setauthorData] = useState<AuthorInfo[]>();
     const [castCrewData, setcastCrewData] = useState<castCrewInfo[]>()
     const [ratingReviewData, setratingReviewData] = useState<RatingReviewInfo[]>()
+    const [favData, setFavData] = useState();
+    const [isFav, setIsfav] = useState(false);
 
     console.log('audioBookDetailsData');
     console.log(audioBookDetailsData);
@@ -50,6 +52,7 @@ const AudioBookDeatilsComponent = () => {
         const data = await getAudioBookDetails(id);
         if (data)
             setaudioBookDetailsData(data);
+            setIsfav(data.is_favorite);
         authorDetails(data.author_name);
         castCrewDetails(data.contributing_artists);
         ratingReviewList(data.id);
@@ -72,7 +75,26 @@ const AudioBookDeatilsComponent = () => {
         const data = await getRatingReviewList(audiobook_id)
         if (data)
             setratingReviewData(data.data);
-    }
+    };
+
+    const favSubmit = async (event: any) => {
+        console.log("hhhhhhhhhhhhhhh");
+
+        if (!isFav) {
+            const fav = await postFavoritesApi(id);
+        } else {
+            const fav = await deleteFavoritesApi(id);
+            setIsfav(false);
+        }
+
+
+
+        // const fav = await postFavoritesApi(id);
+        // if (fav)
+        //     setFavData(fav);
+        // console.log('fav data', fav);
+
+    };
 
     const myLoader = ({ src, width, quality }: any) => {
         return `${src}?w=${width}&q=${quality || 75}`;
@@ -138,10 +160,12 @@ const AudioBookDeatilsComponent = () => {
                     <div className={`container d-flex mt-2 justify-content-center align-items-center ${styles.btnPlacement}`}>
 
                         <div className="mx-2">
-                            <button className={`d-flex align-items-center ${styles.favBtn}`} >
-                                <i className="bi bi-heart-fill mx-1" style={{ fontSize: "20px" }}></i>
-                                <p className="mb-0" >Favourite</p>
+
+                            <button onClick={favSubmit} className={`d-flex align-items-center ${styles.favBtn}`} >
+                                <i className="bi bi-heart-fill mx-1" style={{ fontSize: "20px", color: `${ !isFav ? "red" : "grey"}` }}></i>
+                                <p className="mb-0">Favourite</p>
                             </button>
+
                         </div>
                         <div className="mx-2">
                             <Link href={`/audio_player/${audioBookDetailsData?.id}`} className={`d-flex align-items-center ${styles.listenNowBtn}`}>
@@ -369,7 +393,7 @@ const AudioBookDeatilsComponent = () => {
 
                                 <div className="row py-3 g-3 mx-2">
 
-                                    {audioBookDetailsData ? <div className="text-center"> 
+                                    {audioBookDetailsData ? <div className="text-center">
                                         <Link href={`/rating_review/${audioBookDetailsData?.id}`} type="submit" className={`${styles.addReviewBtn}`}>
                                             <span className="mt-2 d-flex justify-content-center">ADD REVIEW</span>
                                         </Link>
