@@ -1,0 +1,75 @@
+.topNav {
+    min-height: 40px;
+    background: #091227;
+}
+
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-bottom: 35px; */
+    /* margin-left: 20px; */
+}
+
+.ratingReviewPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.ratingReviewContentBox {
+    margin-top: 80px;
+    width: 500px;
+    margin: 0px 15px;
+}
+
+/* .audiBookImg {
+    width: 100%;
+    height: 100%;
+} */
+
+/* .audioBookcard {
+    min-width: 230px;
+    max-height: 100px;
+} */
+
+.reviewForm {
+    background: #0E1D3F;
+    border: none;
+}
+
+.saveBtn {
+    width: 70%;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    background: #0E1D3F;
+    color: white;
+    font-size: 18px;
+}
+
+.bgText {
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.smText {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.favImg {
+    position: relative;
+    border-radius: 6px;
+}
+
+.titleName {
+    margin-top: 5px;
+    color: white;
+    font-size: 12px;
+
+}

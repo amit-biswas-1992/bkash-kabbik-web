@@ -1,0 +1,16 @@
+.text_color {
+    color: white;
+}
+
+.bottomNav {
+    min-height: 50px;
+    background: rgb(7, 25, 54);
+}
+
+.activeMenu {
+    color: white!important;
+}
+
+.inActiveMenu {
+    color: rgba(255, 255, 255, 0.7)!important;
+}

@@ -1,0 +1,297 @@
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-left: 20px; */
+}
+
+.audioBookDetailsPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.audioBookDetailsBox {
+    max-width: 600px;
+    width: 100%;
+}
+
+/* .audiBookImg {
+    width: 100%;
+    height: 100%;
+} */
+
+/* .audioBookcard {
+    min-width: 230px;
+    max-height: 100px;
+} */
+
+.dropDownBtn {
+    color: #fff;
+    background: #091227;
+    border: none;
+    font-size: 16px;
+}
+
+.descriptionBody {
+    color: #bbbbbb;
+}
+
+.smText {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bgText {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+/* .btnPlacement {
+    padding: 0px px;
+} */
+
+.freeAudioText {
+    color: #40ff00;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.premiumAudioText {
+    color: yellow;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.textColor {
+    color: white;
+}
+
+.favBtn {
+    background: linear-gradient(#584fa8, #62c3ca);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 15px;
+    padding: 6px 15px;
+    font-weight: 600;
+}
+
+.listenNowBtn {
+    background: linear-gradient(#E50914 -23.67%, #866AFC 87.41%);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 15px;
+    padding: 6px 15px;
+    font-weight: 600;
+}
+
+.listenedBtn {
+    background: #4CAF50;
+    border: none;
+    color: #fff;
+    font-size: 10px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+.ratingBtn {
+    background: #4CAF50;
+    border: none;
+    color: #fff;
+    font-size: 10px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+.authorCard {
+    background: rgb(7, 25, 54);
+    padding-left: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.authorImg {
+    border-radius: 50%;
+    border: 2px solid #287EC3;
+    /* width: 100%; */
+}
+
+.authorImgEditLogo {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    color: #fff;
+    background: #4CAF50;
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.vhLine {
+    margin: 0px 25px;
+    border-left: 2.5px solid #fff;
+    height: 80px;
+}
+
+.textEnd {
+    margin-bottom: 0px;
+    margin-right: 10px;
+    text-align: end;
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.hrLine {
+    border: 2px solid white;
+}
+
+.navMenu {
+    color: MediumSeaGreen;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+
+.tabBorder {
+    border-bottom: 3px solid white;
+    width: 100%;
+}
+
+.episodesCard {
+    background: rgb(7, 25, 54);
+}
+
+.episodesTitle {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.episodesPlayBtn {
+    font-size: 24px;
+    color: #DF146E;
+}
+
+.episodesDownloadBtn {
+    font-size: 24px;
+    color: white;
+}
+
+.addReviewBtn{
+    background: linear-gradient(#E40000, #6E2F2A);
+    border-radius: 15px;
+    border: none;
+    min-width: 100%;
+    height: 45px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.reviewImg {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.castCrewImgEditLogo {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    color: #fff;
+    background: #0d6efd;
+    padding: 3px;
+    border-radius: 50%;
+    /* font-size: 10px; */
+}
+
+.playBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 60px;
+}
+
+.miniPreviusBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 30px;
+}
+
+.miniBackwardSkipBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.miniPlayBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 40px;
+}
+
+.miniForwardSkipBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.miniNextBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 575px) {
+
+    .miniPreviusBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 30px;
+    }
+    
+    .miniBackwardSkipBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 20px;
+        margin: 0px 30px
+    }
+    
+    .miniPlayBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 40px;
+    }
+    
+    .miniForwardSkipBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 20px;
+        margin: 0px 30px
+    }
+    
+    .miniNextBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 30px;
+    }
+
+}

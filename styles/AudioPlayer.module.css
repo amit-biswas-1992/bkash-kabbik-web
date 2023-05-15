@@ -1,0 +1,238 @@
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-left: 20px; */
+}
+
+.audioPlayerPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.audioPlayerBox {
+    max-width: 500px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.titleName {
+    color: #fff;
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.authorName {
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.previusBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 35px;
+}
+
+.backwardSkipBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 25px;
+}
+
+.playBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 60px;
+}
+
+.forwardSkipBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 25px;
+}
+
+.nextBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 35px;
+}
+
+.miniPreviusBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 30px;
+}
+
+.miniBackwardSkipBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.miniPlayBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 40px;
+}
+
+.miniForwardSkipBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.miniNextBtn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 30px;
+}
+
+.playListBtn {
+    width: 100%;
+    height: 55px;
+    border: none;
+    background: #0E1D3F;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 7px;
+    position: relative;
+}
+
+.playListBody {
+    background: #3f3f3f;
+}
+
+.offcanvasBody {
+    width: 500px;
+}
+
+.playlistText {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+}
+
+.playListCard {
+    border-bottom: 1px solid white;
+}
+
+.plalistLogo {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.episodesTitle {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.episodesPlayBtn {
+    font-size: 24px;
+    color: #DF146E;
+}
+
+.playBackSpeedBody {
+    background: #091227;
+    text-align: center;
+    padding: 0px;
+}
+
+.playBackSpeedHeader {
+    width: 100%;
+    height: 50px;
+    background: #6c757d;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.speedClsBtn {
+    width: 100%;
+    height: 50px;
+    background: #6c757d;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+}
+
+.smText {
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.bgText {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.textColor {
+    color: white;
+}
+
+@media screen and (max-width: 575px) {
+
+    .miniPreviusBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 30px;
+    }
+    
+    .miniBackwardSkipBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 20px;
+        margin: 0px 30px
+    }
+    
+    .miniPlayBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 40px;
+    }
+    
+    .miniForwardSkipBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 20px;
+        margin: 0px 30px
+    }
+    
+    .miniNextBtn {
+        border: none;
+        background: none;
+        color: white;
+        font-size: 30px;
+    }
+
+}

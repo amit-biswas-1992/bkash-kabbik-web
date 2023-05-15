@@ -1,0 +1,46 @@
+.podcastPage {
+    margin-top: 70px;
+    margin-bottom: 90px;
+}
+
+.podcastCard {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    min-height: 120px;
+    width: auto;
+    border: solid 1px  #999999;
+    border-radius: 2px;
+    background: rgb(4, 24, 54);
+}
+
+.textColor{
+    color: white;
+    font-size: 12px;
+}
+
+.starBtn {
+    border-radius: 40px;
+    font-size: 12px;
+    background: #3a3d3a;
+    border: none;
+    padding: 2px;
+    color: white;
+}
+
+.starBtn i {
+    color: gold;
+}
+
+.playBtn {
+    border-radius: 40px;
+    font-size: 12px;
+    background: #3a3d3a;
+    border: none;
+    padding: 2px;
+    color: white;
+}
+
+.playBtn i {
+    color: #54B435;
+}

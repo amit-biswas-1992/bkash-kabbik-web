@@ -1,0 +1,50 @@
+.searchPage {
+    margin-top: 75px;
+    margin-bottom: 45px;
+}
+ 
+.srcInputForm {
+    /* max-width: 500px; */
+    /* width: 100%; */
+    margin: 0px 5px;
+    height: 50px;
+    border-radius: 5px;
+
+}
+
+.inputSearchLogo {
+    color: white;
+    background: rgb(7, 25, 54);
+    border: none;
+}
+
+/* .srcForm {
+    border: none;
+    border-radius: none;
+    max-width: 100%;
+} */
+
+.srcForm {
+    background: rgb(7, 25, 54);
+    border: none;
+}
+
+.catImg {
+    position: relative;
+    border-radius: 6px;
+}
+
+/* .imgText {
+    position: absolute;
+    bottom: 57%;
+    left: 6%;
+    font-size: 1.8vw;
+    color: black;
+} */
+
+.catagoryName {
+    margin-top: 5px;
+    color: white;
+    font-size: 12px;
+}
+

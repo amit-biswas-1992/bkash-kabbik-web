@@ -1,0 +1,54 @@
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-bottom: 35px; */
+    /* margin-left: 20px; */
+}
+
+.searchedAudioBookPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.srcInputForm {
+    margin: 0px 5px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.inputSearchLogo {
+    color: white;
+    background: rgb(7, 25, 54);
+    border: none;
+}
+
+.srcForm {
+    background: rgb(7, 25, 54);
+    border: none;
+}
+
+.audioBookCard {
+    display: flex;
+    min-height: 120px;
+    width: auto;
+    border: solid 1px  #999999;
+    border-radius: 2px;
+    background: rgb(4, 24, 54);
+}
+
+.titleName {
+    margin-top: 5px;
+    color: white;
+    font-size: 13px;
+}
+.authorName {
+    color: white;
+    font-size: 12px;
+}
+
+.narratorName{
+    font-size: 12px;
+}

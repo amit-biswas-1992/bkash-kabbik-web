@@ -1,0 +1,36 @@
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-left: 20px; */
+}
+
+.bookRequestPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bookRequestFormBox {
+    max-width: 500px;
+    width: 100%;
+}
+
+.inputNumberForm {
+    border: none;
+    border-radius: 10px;
+    height: 45px;
+    color: black;
+}
+
+.text_color {
+    color: white;
+}
+
+.submitBtn {
+    background: linear-gradient(106.61deg, #E50914 -23.67%, #866AFC 87.41%);
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    height: 42px;
+}

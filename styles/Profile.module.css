@@ -1,0 +1,156 @@
+.profilePage {
+    min-height: 70vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.profileContentBox {
+    margin-top: 85px;
+    width: 500px;
+}
+
+.editIcon {
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.dropDownBtn {
+    color: #fff;
+    background: #091227;
+    border: none;
+    font-size: 16px;
+}
+
+.line {
+    color: #fff;
+    margin: 0px 10px;
+    border: 2px solid white;
+    border-radius: 2px;
+}
+
+.userTitle {
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+
+.bgText {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.smText {
+    color: white;
+    font-size: 12px;
+    /* font-weight: 600; */
+}
+
+.card1 {
+    margin: 0px 5px;
+    border-radius: 5px;
+    max-width: 500px;
+    height: auto;
+    background: linear-gradient(to bottom right, #584fa8, #62c3ca);
+}
+
+.listIcon {
+    color: #fff;
+    font-size: 25px;
+    margin-bottom: 14px;
+    margin-right: 10px;
+}
+
+.linkIcon {
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.logoutLink{
+    border: none;
+    background-color: #091227;
+    /* margin-left: 10px; */
+}
+
+.fbBtn{
+    background: #39569C;
+    /* background: white; */
+    border-radius: 10px;
+    border: none;
+    min-width: 280px;
+    height: 55px;
+    text-align: center;
+    color: #fff;
+}
+
+.fblogo {
+    font-size: 30px;
+    color: #fff;
+}
+
+.fbComBtn{
+    background: #39569C;
+    border-radius: 10px;
+    border: none;
+    min-width: 280px;
+    height: 55px;
+    /* color: black; */
+    text-align: center;
+    color: #fff;
+}
+
+.fbComlogo {
+    font-size: 30px;
+    color: #fff;
+}
+
+.ytBtn{
+    background: linear-gradient(#E40000, #6E2F2A);
+    border-radius: 10px;
+    border: none;
+    min-width: 280px;
+    height: 55px;
+    text-align: center;
+    color: #fff;
+}
+
+.unSubBtn{
+    background: linear-gradient(#E40000, #6E2F2A);
+    border-radius: 10px;
+    border: none;
+    min-width: 280px;
+    /* height: 55px; */
+    padding: 15px 0px;
+    text-align: center;
+    color: #fff;
+}
+
+.ytlogo {
+    font-size: 30px;
+    color: #fff;
+}
+
+.modalBody {
+    background-color: #3f3f3f;
+    /* margin: 0px 10px; */
+    color: #fff;
+}
+
+
+
+.logoutWarningBtnYes {
+    color: #fff;
+    border: none;
+    background-color: #3f3f3f;
+}
+
+.logoutWarningBtnNo {
+    color: #fff;
+    border: none;
+    background-color: #3f3f3f;
+}

@@ -1,0 +1,27 @@
+.aboutPage {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutContentBox {
+    max-width: 600px;
+    width: 100%;
+}
+
+.text_color {
+    color: white;
+}
+
+.backBtn {
+    color: white;
+    margin-top: 30px;
+    /* margin-left: 20px; */
+}
+
+.refundCard {
+    border-radius: 5px;
+    
+}
