@@ -89,11 +89,21 @@ export default function Home() {
         
       },[]);
 
-    const [is_subscribed, set_is_subscribed] = useState(false);
+    // const [is_subscribed, set_is_subscribed] = useState(false);
+    // const isAuthenticated = useCallback(async () => {
+    //     const isSubscribed = JSON.parse(localStorage.getItem("is_subscribed") || "{}");
+    //     if (isSubscribed === 1)
+    //         set_is_subscribed(true);
+    // }, [router]);
+
+    const [subscribed, setSubscribed]: any = useState();
+
     const isAuthenticated = useCallback(async () => {
-        const isSubscribed = JSON.parse(localStorage.getItem("is_subscribed") || "{}");
-        if (isSubscribed === 1)
-            set_is_subscribed(true);
+      setSubscribed(localStorage.getItem("is_subscribed"));
+      // const isSubscribed = JSON.parse(
+      //   localStorage.getItem("is_subscribed") || "{}"
+      // );
+      // if (isSubscribed === 1) set_is_subscribed(true);
     }, [router]);
 
     useEffect(() => {
@@ -255,7 +265,7 @@ export default function Home() {
                                                         <span className={styles.sliderText}>{topbannerinfo.play_count}</span>
                                                     </div>
 
-                                                    <Link href={is_subscribed === true || topbannerinfo?.price === 0 ? `/audio_player/${topbannerinfo?.id}` : "/subscribe"} >
+                                                    <Link href={subscribed == 1 || topbannerinfo?.price === 0 ? `/audio_player/${topbannerinfo?.id}` : "/subscribe"} >
                                                         <button className={`mx-4 ${styles.audioPlayBtn}`} type="button"><i className="bi bi-play-circle-fill" ></i> Play</button>
                                                     </Link>
 
@@ -314,7 +324,7 @@ export default function Home() {
 
                                                     <div className="d-flex justify-content-between card-header p-2">
 
-                                                        {is_subscribed === true ? '' :
+                                                        {subscribed == 1 ? '' :
                                                             audiobookinfo.price === 0 ?
                                                                 <div className={styles.freeAudioText}>Free</div>
                                                                 :

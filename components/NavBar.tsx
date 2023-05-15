@@ -12,15 +12,26 @@ export default function NavBar() {
   //     localStorage.getItem("user_token");
   // }
 
-  const [is_subscribed, set_is_subscribed] = useState(false);
+  // const [is_subscribed, set_is_subscribed] = useState(false);
   const [validToken, setValidToken]:any = useState();
+
+  // const isAuthenticated = useCallback(async () => {
+  //   setValidToken(localStorage.getItem("user_token"));
+  //   const isSubscribed = JSON.parse(
+  //     localStorage.getItem("is_subscribed") || "{}"
+  //   );
+  //   if (isSubscribed === 1) set_is_subscribed(true);
+  // }, [router]);
+
+  const [subscribed, setSubscribed]: any = useState();
 
   const isAuthenticated = useCallback(async () => {
     setValidToken(localStorage.getItem("user_token"));
-    const isSubscribed = JSON.parse(
-      localStorage.getItem("is_subscribed") || "{}"
-    );
-    if (isSubscribed === 1) set_is_subscribed(true);
+    setSubscribed(localStorage.getItem("is_subscribed"));
+    // const isSubscribed = JSON.parse(
+    //   localStorage.getItem("is_subscribed") || "{}"
+    // );
+    // if (isSubscribed === 1) set_is_subscribed(true);
   }, [router]);
 
   useEffect(() => {
@@ -60,7 +71,7 @@ export default function NavBar() {
             </div>
           </div>
 
-          {is_subscribed === true || !validToken ? (
+          {subscribed == 1 || !validToken ? (
             ""
           ) : (
             <div>
