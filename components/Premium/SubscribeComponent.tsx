@@ -246,7 +246,7 @@ const Subscribe = () => {
                             <p className={`card-text ${styles.smText}`}>সাবস্ক্রিপশন এর সুবিধা</p>
                             <p className={`card-text ${styles.neonText}`}><i className={`bi bi-check2 ${styles.checkIcon}`}></i> প্রিমিয়াম অডিওবুক</p>
                             <p className={`card-text ${styles.neonText}`}><i className={`bi bi-check2 ${styles.checkIcon}`}></i> বিজ্ঞাপন বিহীন সেবা</p>
-                            <p className={`card-text ${styles.neonText}`}><i className={`bi bi-check2 ${styles.checkIcon}`}></i> ২০+ অফলাইন ডাউনলোড সুবিধা</p>
+                            <p className={`card-text ${styles.neonText}`}><i className={`bi bi-check2 ${styles.checkIcon}`}></i> ১৫+ অফলাইন ডাউনলোড সুবিধা</p>
                             <p className={`card-text ${styles.neonText}`}><i className={`bi bi-check2 ${styles.checkIcon}`}></i> সকল ক্যাটাগরিতে প্রবেশের সুযোগ</p>
                         </div>
 
