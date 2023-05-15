@@ -77,6 +77,7 @@ export default async function handler(
     //   console.error('Error:', error);
     // }
 
+    try {
     superagent.post('https://api.kabbik.com/v3/bkash/bKash/auth')
       .send(req.body)
       .set('Accept', 'application/json')
@@ -89,15 +90,24 @@ export default async function handler(
             if (respon.status == 200 || respon.status == 201) {
               res.status(200).json(respon.body);
             } else {
-              res.status(401).json(respon.message);
-              // console.log('saim',respon.message);
+              res.status(200).json(respon.body);
+              console.log('saim',respon.message);
 
             }
           } catch (err) {
-            res.status(401).json(respon.message);
+            console.log('saim2',respon.message);
+            res.status(200).json(respon.body);
 
           }
-        });
+        })
+        
+        
+      } catch (err) {
+        
+        console.log('saim',"nai");
+        res.status(200).json("Error");
+
+      };
     }
     else {
       res.status(200).json({ errorMessage: 'Wrong Responese!' });

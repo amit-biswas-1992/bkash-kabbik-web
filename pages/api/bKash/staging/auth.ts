@@ -77,7 +77,7 @@ export default async function handler(
     //   console.error('Error:', error);
     // }
 
-    superagent.post('https://api.kabbik.com/v3/bkash/bKash/auth')
+    superagent.post('https://api.kabbik.com/v3/bkash/bKash/staging/auth')
       .send(req.body)
       .set('Accept', 'application/json')
       .then((respon: any) => {
