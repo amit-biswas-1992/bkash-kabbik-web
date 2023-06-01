@@ -156,7 +156,8 @@ const Subscribe = () => {
                     </div>
 
 
-                    {packListData.length > 0 && <div className={styles.card1} >
+                    {packListData.length > 0 && <div className={styles.grad_border}>
+                        <div className={styles.card1} >
 
                         <div className="card-body text-center p-3" onClick={() => packageDetails(packListData[0])} data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" >
                             <h5 className={`card-title pb-3 ${styles.bgText}`}>{packListData[0].name}
@@ -165,7 +166,9 @@ const Subscribe = () => {
                             <p className={`card-text ${styles.smText}`}>(নবায়নযোগ্য)</p>
                         </div>
 
-                    </div>}
+                    </div>
+                        
+                    </div> }
 
 
                     <div className="row g-1 pt-3 pb-3 mx-2">
