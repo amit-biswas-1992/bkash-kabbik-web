@@ -32,6 +32,7 @@ export const apiEndPoints = {
     updateProfile: `${BASE_URL}/v1/users/update/withoutImage/`,
     bookRequestPostApi: `${BASE_URL}/v4/story/bookRequest`,
     bkashPaymentApi: `${BASE_URL}/v3/bkash/bkash-create-subscription-request-app`,
+    bkashOneTimePaymentApi: `${BASE_URL}/v3/bkash/bkash-onetime-create-payment`,
     audioBookPlayCount: `${BASE_URL}/v2/audiobooks/`,
     episodePlayCount: `${BASE_URL}/v2/audiobooks/`,
     promoCodeGet: `${BASE_URL}/v4/home/checkPromoCode?`,

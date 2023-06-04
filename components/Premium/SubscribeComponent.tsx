@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { bkashPostApi, getPackList, getPromoCodeApi } from "../../services/api.service";
+import { bkashOneTimePostApi, bkashPostApi, getPackList, getPromoCodeApi } from "../../services/api.service";
 import PackInfo from "../../models/PackInfo";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,11 +17,13 @@ const Subscribe = () => {
     let reduced_price = 0;
 
     const { toBengaliNumber, toBengaliWord } = require('bengali-number');
-    const [packListData, setpackListData] = useState<PackInfo[]>([]);
+    const [packListData, setpackListData]: any = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [singlePackData, setSinglePackData]: any = useState({});
     const [promoData, setPromoData] = useState("");
     const [promoCode, setPromoCode]: any = useState();
+    const [oneTime, setOneTime]: any = useState();
+
 
     useEffect(() => {
         packlist();
@@ -32,28 +34,23 @@ const Subscribe = () => {
         const data = await getPackList();
         if (data)
             setpackListData(data.data);
-
+            console.log("siam", data.data[1].isOnetime);
+            console.log("siam", data.data);
     };
 
     const packageDetails = (data: any) => {
-
         setSinglePackData(data);
-        
+
     };
 
     const promoHandler = (event: any) => {
-
         setPromoData(event.target.value);
     };
 
     const promoBtn = async () => {
-
         setShowResults(true);
-
         const promoCodeData = await getPromoCodeApi(singlePackData.subscriptionItemId, promoData);
-
         if (Object.keys(promoCodeData).length) {
-
             singlePackData.reduce_price = promoCodeData.data.reduce_price;
             setPromoCode(promoCodeData.data);
             toast.success("Promo Code Added!", {
@@ -75,7 +72,6 @@ const Subscribe = () => {
                 theme: "dark",
             });
         }
-
     };
 
     const removeHandler = async () => {
@@ -133,8 +129,15 @@ const Subscribe = () => {
 
     const bkashPayment = async () => {
 
-        const bkashResponseData = await bkashPostApi(singlePackData);
-        window.location.replace(bkashResponseData.data.redirectURL);
+        if(singlePackData.isOnetime === 0) 
+        {
+            const subscriptionResponseData = await bkashPostApi(singlePackData);
+            window.location.replace(subscriptionResponseData.data.redirectURL);
+        }
+        else {
+            const oneTimeResponseData = await bkashOneTimePostApi(singlePackData);
+            window.location.replace(oneTimeResponseData.data.bkashURL);
+        }
 
     };
 
@@ -143,7 +146,7 @@ const Subscribe = () => {
         <>
             <ToastContainer />
             <div className={styles.backBtn}>
-                <h5 onClick={() => Router.back()}><i className="bi bi-arrow-left mx-3"></i> Subscribe</h5>
+                <Link href="/"><h5><i className="bi bi-arrow-left mx-3"></i> Subscribe</h5></Link>
             </div>
 
             <div className={`mb-5 ${styles.subscribePage}`}>
@@ -180,7 +183,6 @@ const Subscribe = () => {
                                 <div className="card-body text-center pt-4">
                                     <h5 className={`card-title pb-3 ${styles.bgText}`}>{packListData[1].name}</h5>
                                     <p className={`card-text pb-2 ${styles.bgText}`}>{packListData[1].amount} / {packListData[1].length} </p>
-                                    <p className={`card-text ${styles.smText}`}>(নবায়নযোগ্য)</p>
                                 </div>
 
                             </div>}
@@ -195,7 +197,6 @@ const Subscribe = () => {
                                 <div className="card-body text-center pt-4">
                                     <h5 className={`card-title pb-3 ${styles.bgText}`}>{packListData[2].name}</h5>
                                     <p className={`card-text pb-2 ${styles.bgText}`}>{packListData[2].amount} /{packListData[2].length}</p>
-                                    <p className={`card-text ${styles.smText}`}>(নবায়নযোগ্য)</p>
                                 </div>
 
                             </div>}

@@ -846,6 +846,39 @@ export const bkashPostApi = async (payloadData: any) => {
 
 };
 
+export const bkashOneTimePostApi = async (payloadData: any) => {
+
+    const myHeaders = new Headers();
+    const userToken = localStorage?.getItem("user_token");
+
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const url = `${apiEndPoints.bkashOneTimePaymentApi}`;
+    let amountPrice = payloadData.rawPrice - (payloadData?.reduce_price ? payloadData.reduce_price : 0);
+    
+    var raw = JSON.stringify({
+        userId: localStorage.getItem("user_id"),
+        amount: amountPrice.toString(),
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        return response.json();
+
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+
+};
+
 export const postEpisodePlayCountApi = async (id: any) => {
 
     const myHeaders = new Headers();

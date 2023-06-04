@@ -79,6 +79,10 @@
     animation: example 4s ease infinite;
 }
 
+.card1,.card2:hover {
+cursor: pointer;
+}
+
 @keyframes example {
     0% {
 		background-position: 0% 50%;
