@@ -43,6 +43,10 @@ export default function handler(
       .set('Accept', 'application/json')
       .set('headers', JSON.stringify(req.headers))
       .then((respon: { body: any; }) => {
+        console.log("================================================");
+        console.log("Start Webhook payload:----------------------------------");
+        console.log(respon.body);
+        console.log("End Webhook Response--------");
         res.status(200).json(respon.body);
       });
   }
